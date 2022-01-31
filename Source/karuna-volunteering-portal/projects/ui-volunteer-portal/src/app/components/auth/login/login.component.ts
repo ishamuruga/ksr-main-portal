@@ -38,6 +38,12 @@ export class LoginComponent implements OnInit {
     this.fbLoginService.signIn(new VUser(userid,password)).then(x=>{
       console.log("==========================FB Regusr")
       console.log(x);
+      this.layoutService.isAuthenticated = true;
+      this.router.navigate(['dashboard']);
+    }).catch(err=>{
+      throw new Error("Invalid Login");
+    }).finally(()=>{
+      console.log("Completed")
     })
 
     // this.logingService.doLogin(new VUser(userid, password)).subscribe(x => {

@@ -5,15 +5,18 @@
                 <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid " alt="Phone image "> -->
                 <img src="./assets/karuna_logo.jpg" class="img-fluid" alt="Phone image" />
                 <!-- <img src="./assets/karunashraya-corporate-social-responsibility-image-large-13.jpg" width="1010px" class="img-fluid" alt="Phone image" /> -->
+
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1 ">
                 <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="submitForm(loginForm.value)">
                     <!-- Email input -->
                     <div class="form-outline mb-4 ">
                         <!-- <input type="email " id="form1Example13 " class="form-control form-control-lg " /> -->
-                        <input type="email" class="form-control form-control-lg" placeholder="Enter a valid email address" name="userid" formControlName="userid" />
+                        <input type="email" class="form-control form-control-lg"
+                            placeholder="Enter a valid email address" name="userid" formControlName="userid" />
                         <label class="form-label " for="form1Example13 ">Email address</label>
-                        <div *ngIf="loginForm.controls['userid'].hasError('required') && loginForm.controls['userid'].touched" class="alert alert-danger">
+                        <div *ngIf="loginForm.controls['userid'].hasError('required') && loginForm.controls['userid'].touched"
+                            class="alert alert-danger">
                             Enter Valid User ID.
                         </div>
                     </div>
@@ -22,43 +25,49 @@
                     <!-- Password input -->
                     <div class="form-outline mb-4 ">
                         <!-- <input type="password " id="form1Example23 " class="form-control form-control-lg " /> -->
-                        <input type="password" class="form-control form-control-lg" placeholder="Enter password" name="password" formControlName="password" />
+                        <input type="password" class="form-control form-control-lg" placeholder="Enter password"
+                            name="password" formControlName="password" />
                         <label class="form-label " for="form1Example23 ">Password</label>
-                        <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched" class="alert alert-danger">
+                        <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched"
+                            class="alert alert-danger">
                             You must include a last name.
                         </div>
-                        <div *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched" class="alert alert-danger">
+                        <div *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched"
+                            class="alert alert-danger">
                             Your last name must be at least 5 characters long.
                         </div>
-                        <div *ngIf="loginForm.controls['password'].hasError('maxlength') && loginForm.controls['password'].touched" class="alert alert-danger">
+                        <div *ngIf="loginForm.controls['password'].hasError('maxlength') && loginForm.controls['password'].touched"
+                            class="alert alert-danger">
                             Your last name cannot exceed 10 characters.
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-around align-items-center mb-4 ">
-                        <!-- Checkbox -->
-                        <div class="form-check ">
-                            <input class="form-check-input" type="checkbox" value=" " id="form1Example3 " checked />
-                            <label class="form-check-label" for="form1Example3 "> Remember me </label>
-                        </div>
-                        <a href="#! ">Forgot password?</a>
+                        <a routerLink="" >Forgot password?</a>
                     </div>
 
                     <!-- Submit button -->
                     <!-- <button type="submit " class="btn btn-primary btn-lg btn-block ">Sign in</button> -->
-                    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-lg btn-block " style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-lg btn-block "
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+
+                        <div class="d-flex justify-content-around align-items-center mb-4 ">
+                            <a href="#! ">New Volunteer Registration</a>
+                        </div>
 
                     <div class="divider d-flex align-items-center my-4 ">
                         <p class="text-center fw-bold mx-3 mb-0 text-muted ">OR</p>
                     </div>
 
-                    <a href="#" class="google btn btn-primary btn-lg btn-block"><i class="fab fa-google">
-                    </i> Login with Google+
-                  </a>
+                        <button class="google btn-block btn-sm ">
+                            <i class="fab fa-google"></i> Login with Google+
+                        </button>
 
-                    <a class="btn btn-primary btn-lg btn-block " style="background-color: #3b5998" href="#! " role="button ">
-                        <i class="fab fa-facebook me-2"></i> Continue with Facebook
-                    </a>
+
+                        <button style="background-color: #3b5998" class="fb btn-block btn-sm"><i
+                                class="fab fa-facebook me-2"></i> Continue with Facebook</button>
+
+
 
 
 
