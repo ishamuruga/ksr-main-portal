@@ -28,9 +28,38 @@ export class FBLoginService implements LoginManager {
     return this.angularFireAuth.createUserWithEmailAndPassword(user.id, user.password);
   }
 
-  signIn(user: VUser): Promise<any> {
+  async signIn(user: VUser): Promise<any> {
     console.log(user.id + "," + user.password);
-    return this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password);
+
+    let result = await this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password);
+
+    let data:any  = result.user?.toJSON();
+
+    let vuser:VUser = new VUser();
+    vuser.id = result.user?.email + "";
+    vuser.displayName = result.user?.providerData[0]?.displayName + "";
+    vuser.loggedInTS = new Date();
+    vuser.accessToken = data.stsTokenManager.accessToken;
+    vuser.refreshToken = data.stsTokenManager.refreshToken;
+      
+    return Promise.resolve(vuser);    
+    
+    // this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password).then(x=>{
+    //   let y = x as firebase.auth.UserCredential;
+    //   let data:any  = y.user?.toJSON();
+
+    //   let vuser:VUser = new VUser();
+    //   vuser.id = y.user?.email + "";
+    //   vuser.displayName = y.user?.providerData[0]?.displayName + "";
+    //   vuser.loggedInTS = new Date();
+    //   vuser.accessToken = data.stsTokenManager.accessToken;
+    //   vuser.refreshToken = data.stsTokenManager.refreshToken;
+      
+
+    //   return Promise.resolve(vuser);    
+      
+      
+    // });
   }
 
   signOut(): boolean {

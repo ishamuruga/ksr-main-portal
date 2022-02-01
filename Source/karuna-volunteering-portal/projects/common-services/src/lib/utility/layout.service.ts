@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LayoutService {
 
-  private _isAuthenticated:boolean = false;
+  private _isAuthenticated:boolean = true;
 
   public set isAuthenticated(_val:boolean) {
     this._isAuthenticated = _val;

@@ -5,6 +5,8 @@ import { FBLoginService } from 'projects/common-api/src/public-api';
 import { VUser } from 'projects/common-model/src/public-api';
 import { LayoutService, LoginService } from 'projects/common-services/src/public-api';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,10 +36,13 @@ export class LoginComponent implements OnInit {
     let password = form["password"]
 
     console.log(userid + "," + password);
-
-    this.fbLoginService.signIn(new VUser(userid,password)).then(x=>{
+    let user:VUser = new VUser();
+    user.id = userid;
+    user.password = password;
+    this.fbLoginService.signIn(user).then(user=>{
       console.log("==========================FB Regusr")
-      console.log(x);
+      console.log(user);
+      sessionStorage.setItem("auth",JSON.stringify(user));
       this.layoutService.isAuthenticated = true;
       this.router.navigate(['dashboard']);
     }).catch(err=>{
@@ -45,23 +50,11 @@ export class LoginComponent implements OnInit {
     }).finally(()=>{
       console.log("Completed")
     })
-
-    // this.logingService.doLogin(new VUser(userid, password)).subscribe(x => {
-    //   console.log("<><><><><><><><><><>")
-    //   console.log(x);
-    //   if (x.length == 1) {
-    //     this.layoutService.isAuthenticated = true;
-    //     this.router.navigate(['dashboard']);
-    //   } else {
-    //     throw new Error("Invalid Login");
-    //   }
-    // })
-
   }
 
   ngOnInit(): void {
     this.layoutService.isAuthenticated = false;
-
+    sessionStorage.clear();
   }
 }
 

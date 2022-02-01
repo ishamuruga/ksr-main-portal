@@ -8,11 +8,10 @@ export class VUser {
     photoURL?: string;
     displayName?: string;
     loggedInTS!: Date;
+    accessToken:string="";
+    refreshToken:string="";
 
-    constructor(_userid: string, _password: string) {
-        this.id = _userid;
-        this.password = _password;
-    }
+    constructor(){}
 }
 
 export const users: VUser[] = [
@@ -24,7 +23,9 @@ export const users: VUser[] = [
         roles: [
             { id: 1, name: "admin" },
             { id: 2, name: "vol" }
-        ]
+        ],
+        accessToken:"",
+        refreshToken:""
     },
     {
         id: "kala",
@@ -33,6 +34,8 @@ export const users: VUser[] = [
         loggedInTS: new Date(),
         roles: [
             { id: 2, name: "vol" }
-        ]
+        ],
+        accessToken:"",
+        refreshToken:""
     }
 ]
