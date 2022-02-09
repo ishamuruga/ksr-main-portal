@@ -11,3 +11,8 @@
 
 .dropdown-menu{min-width:0;}
 .dropdown-menu .dropdown-item{white-space:normal;}
+
+.custom:hover {
+  background-color: yellow;
+  cursor:pointer;
+}

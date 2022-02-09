@@ -6,7 +6,7 @@ import LoginManager from './login.manager';
 import firebase from 'firebase/compat/app';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { UserCredential } from 'firebase/auth';
+import { User, UserCredential } from 'firebase/auth';
 
 import { Router } from '@angular/router';
 import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
@@ -15,8 +15,6 @@ import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utilit
   providedIn: 'root'
 })
 export class FBLoginService implements LoginManager {
-
-
 
   constructor(private angularFireAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -53,28 +51,68 @@ export class FBLoginService implements LoginManager {
     this.evtService.raiseEvent(EVENTTYPE.EVENT_LOGIN,vuser);
     return Promise.resolve(vuser);
 
-    // this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password).then(x=>{
-    //   let y = x as firebase.auth.UserCredential;
-    //   let data:any  = y.user?.toJSON();
-
-    //   let vuser:VUser = new VUser();
-    //   vuser.id = y.user?.email + "";
-    //   vuser.displayName = y.user?.providerData[0]?.displayName + "";
-    //   vuser.loggedInTS = new Date();
-    //   vuser.accessToken = data.stsTokenManager.accessToken;
-    //   vuser.refreshToken = data.stsTokenManager.refreshToken;
-
-
-    //   return Promise.resolve(vuser);    
-
-
-    // });
   }
 
-  signOut(): boolean {
+  async signOut():Promise<boolean> {
+    await this.angularFireAuth.signOut();
     sessionStorage.removeItem('auth');
-    return true;
+
+    return Promise.resolve(true);
   }
+
+
+  async googleSignin(): Promise<any> {
+    console.log("=========================1");
+    const provider = new firebase.auth.GoogleAuthProvider();
+    console.log("=========================2");
+    const credential = await this.angularFireAuth.signInWithPopup(provider);
+    console.log("=========================3");
+    console.log(credential);
+
+    if (credential == null){
+      Promise.reject();
+    }
+
+    console.log("=========================4");
+    
+    let user = credential.user;
+    let data:any = { 
+      uid: user!.uid, 
+      email: user!.email, 
+      displayName: user!.displayName, 
+      photoURL: user!.photoURL
+    };
+    console.log("=========================5");
+    console.log(data);
+    console.log("=========================6");
+
+    //let dd= this.updateUserData(credential.user);
+
+
+
+    return Promise.resolve(data);
+
+  }
+
+  private updateUserData(user: any) {
+    // Sets user data to firestore on login
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+
+    const data:any = { 
+      uid: user.uid, 
+      email: user.email, 
+      displayName: user.displayName, 
+      photoURL: user.photoURL
+    } 
+
+    
+
+    userRef.set(data, { merge: true })
+
+    return data;
+  }
+
+
 
 
 }

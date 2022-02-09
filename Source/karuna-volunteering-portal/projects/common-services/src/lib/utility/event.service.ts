@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export enum EVENTTYPE {
-  EVENT_LOGGOUT=1,EVENT_LOGIN=2
+  EVENT_LOGGOUT=1,
+  EVENT_LOGIN=2,
+  MAIN_MENU_CLICK=3
 }
 
 @Injectable({

@@ -7,7 +7,7 @@ interface LoginManager {
 
     signIn(user:VUser):Promise<any>;
 
-    signOut():boolean;
+    signOut():Promise<boolean>;
 }
 
 export default LoginManager;

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FBLoginService } from 'projects/common-api/src/public-api';
 import { VUser } from 'projects/common-model/src/public-api';
+import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
 import { LayoutService, LoginService } from 'projects/common-services/src/public-api';
 
 
@@ -44,6 +45,8 @@ export class LoginComponent implements OnInit {
       console.log(user);
       sessionStorage.setItem("auth",JSON.stringify(user));
       this.layoutService.isAuthenticated = true;
+  
+      console.log("EMPTY SUB MENU RAISER");
       this.router.navigate(['dashboard']);
     }).catch(err=>{
       throw new Error("Invalid Login");
@@ -55,6 +58,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.layoutService.isAuthenticated = false;
     sessionStorage.clear();
+  }
+
+  async doGoogleSignIn(){
+    alert("Signin");
+    let data:any = await this.fbLoginService.googleSignin();
+    if (data){
+      sessionStorage.setItem("auth",JSON.stringify(data));
+      this.layoutService.isAuthenticated = true;
+      this.router.navigate(['dashboard']);
+    }
+    console.log(data);
   }
 }
 

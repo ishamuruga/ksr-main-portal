@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MainMenu, SubMenu,menus } from 'projects/common-model/src/public-api';
+import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
 import { LayoutService } from 'projects/common-services/src/public-api';
 
 @Component({
@@ -8,7 +10,27 @@ import { LayoutService } from 'projects/common-services/src/public-api';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(public layoutService:LayoutService) { }
+  private mMenu!:MainMenu;
+
+  public sMenus!:SubMenu[];
+
+  constructor(public layoutService:LayoutService,private evntService:EventService) { 
+    this.evntService.readEvent().subscribe((x:any)=>{
+      if (x){
+        if (x.event==EVENTTYPE.MAIN_MENU_CLICK){
+          console.log(x.data);
+          if (x.data){
+            this.mMenu = x.data;
+            this.sMenus = this.mMenu.sMenu;
+            console.log(this.mMenu.sMenu);
+          } else {
+            this.sMenus = menus[0].sMenu;
+          }
+          
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
   }
