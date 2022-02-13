@@ -1,18 +1,16 @@
 <div>
     <app-navbar></app-navbar>
-    <div class="container-fluid">
-        <div [ngClass]="{'row':layoutService.isAuthenticated}">
-            <app-sidebar></app-sidebar>
-            <main role="main" [ngClass]="{
-                'col-md-9':layoutService.isAuthenticated , 
-                'ml-sm-auto':layoutService.isAuthenticated, 
-                'col-lg-10':layoutService.isAuthenticated, 
-                'px-md-4':layoutService.isAuthenticated
-            }">
-                <div>
-                    <router-outlet></router-outlet>
-                </div>
-            </main>
-        </div>
+    <div>
+        <app-sidebar></app-sidebar>
+        <main role="main" [ngClass]="{
+            'col-md-9':layoutService.isAuthenticated , 
+            'ml-sm-auto':layoutService.isAuthenticated, 
+            'col-lg-10':layoutService.isAuthenticated, 
+            'px-md-4':layoutService.isAuthenticated
+        }">
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </main>
     </div>
 </div>

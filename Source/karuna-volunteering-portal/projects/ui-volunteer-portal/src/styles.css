@@ -1,16 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { 
+html,
+
+/* body {
     height: 100%;
     overflow: scroll-y;
-    overflow-x: hidden; 
-}
+    overflow-x: hidden;
+} */
 
-
-
-body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    /* background-color: #fff; */
     padding-top: 0px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
+    /* background-color: #fff; */
 }
