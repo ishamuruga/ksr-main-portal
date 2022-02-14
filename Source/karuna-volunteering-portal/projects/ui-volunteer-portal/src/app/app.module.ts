@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { ErrorDialogueComponent } from './components/common/error-dialogue/error
 import { CommonApiModule } from 'projects/common-api/src/public-api';
 import { LandingComponent } from './secured/landing/landing.component';
 import { NewVolunteerRegistrationComponent } from './components/open/new-volunteer-registration/new-volunteer-registration.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { NewVolunteerRegistrationComponent } from './components/open/new-volunte
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
-    CommonApiModule
+    MatSelectModule,
+    CommonApiModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalExceptionService }
