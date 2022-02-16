@@ -124,7 +124,10 @@ export class NewVolunteerRegistrationComponent implements OnInit {
         this.volService.signUp(this.vol.email, this.vol.password).then(
           () => {
             this.toastr.success('Volunteer Registration successfull');
-            this.route.navigate(['login']);
+            setTimeout(()=>{
+              this.route.navigate(['login']);
+            },1000);
+
           },
           (err) => {
             this.toastr.error('Registration Failed');
@@ -133,7 +136,11 @@ export class NewVolunteerRegistrationComponent implements OnInit {
       });
     }
   }
-  async uploadFile(event: any) {}
+
+
+  async uploadFile(event: any) {
+    this.volService.uploadFile(event);
+  }
    
 
 }

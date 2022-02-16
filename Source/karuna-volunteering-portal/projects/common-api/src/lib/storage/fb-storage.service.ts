@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 //import { AngularFireStorage } from '@angular/fire/storage/angular-fire-storage';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { readAndCompressImage } from 'browser-image-resizer';
+//import { readAndCompressImage } from 'browser-image-resizer';
 import { finalize } from 'rxjs';
+
+const biresizer = require('browser-image-resizer');
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +15,9 @@ export class FbStorageService {
 
   constructor(private storage: AngularFireStorage) { }
 
-  async uploadFile(file:any) {
-    //const file = event.target.files[0];
-    let resizedImage = await readAndCompressImage(file, imageConfig);
+  async uploadFile(data:any) {
+    const file = data.target.files[0];
+    let resizedImage = await biresizer.readAndCompressImage(file, imageConfig);
     const filepath = file.name;
     const fileRef = this.storage.ref(filepath);
     const task = this.storage.upload(filepath, resizedImage);
