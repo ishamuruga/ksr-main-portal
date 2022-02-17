@@ -46,7 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
   ],
   providers: [
-    { provide: ErrorHandler, useClass: GlobalExceptionService }
+     { provide: ErrorHandler, useClass: GlobalExceptionService }
   ],
   bootstrap: [AppComponent]
 })

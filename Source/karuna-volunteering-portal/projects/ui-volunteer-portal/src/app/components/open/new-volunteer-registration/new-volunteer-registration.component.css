@@ -5,6 +5,9 @@
     height: 1px;
     background: #eee;
 }
+.divtext {
+    color:blueviolet
+}
 
 .h-custom {
     height: calc(100% - 73px);

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FBLoginService } from 'projects/common-api/src/public-api';
-import { VUser } from 'projects/common-model/src/public-api';
+import { FBLoginService, FbUserService } from 'projects/common-api/src/public-api';
+import { Volunteer, VUser } from 'projects/common-model/src/public-api';
 import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
 import { LayoutService, LoginService } from 'projects/common-services/src/public-api';
+import { first } from 'rxjs';
 
 
 
@@ -17,15 +18,15 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-
+  showErrorMessage:boolean=false;
   constructor(private fb: FormBuilder,
     private router: Router,
     private layoutService: LayoutService,
     private fbLoginService: FBLoginService) {
     this.loginForm = fb.group({
       // We can set default values by passing in the corresponding value or leave blank if we wish to not set the value. For our example, we’ll default the gender to female.
-      'userid': ['abirami@gmail.com', Validators.required],
-      'password': ['abirami123', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])]
+      'userid': ['', Validators.required],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])]
     });
 
 
@@ -45,19 +46,24 @@ export class LoginComponent implements OnInit {
       console.log(user);
       sessionStorage.setItem("auth",JSON.stringify(user));
       this.layoutService.isAuthenticated = true;
-  
       console.log("EMPTY SUB MENU RAISER");
       this.router.navigate(['dashboard']);
     }).catch(err=>{
-      throw new Error("Invalid Login");
+      this.router.navigate(['/']);
+      this.showErrorMessage = true
     }).finally(()=>{
-      console.log("Completed")
+      console.log("Component Completed")
     })
   }
 
   ngOnInit(): void {
     this.layoutService.isAuthenticated = false;
     sessionStorage.clear();
+    console.log("^^^^^^^^^^^^^^^^^^^^");
+    // this.fbUserService.fetchUserById("abi@abi.com").subscribe((x:any)=>{
+    //   console.log(x)
+    // })
+
   }
 
   async doGoogleSignIn(){

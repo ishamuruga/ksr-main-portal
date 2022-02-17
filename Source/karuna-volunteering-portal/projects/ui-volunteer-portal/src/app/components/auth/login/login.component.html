@@ -4,7 +4,8 @@
         <div class="col-sm-6 col-md-7 intro-section">
             <div class="brand-wrapper">
                 <!-- <h1><a href="https://stackfindover.com/">Logo</a></h1> -->
-                <img class="ribbon" src="https://karunashraya.org/wp-content/uploads/2019/10/karunashraya_logo-e1570085821656.png" />
+                <img class="ribbon"
+                    src="https://karunashraya.org/wp-content/uploads/2019/10/karunashraya_logo-e1570085821656.png" />
                 <!-- <a id="topright" href="#" title="TopRight">Top Right Link Text</a> -->
             </div>
             <div class="intro-content-wrapper">
@@ -18,31 +19,41 @@
         </div>
         <div class="col-sm-6 col-md-5 form-section">
             <div class="login-wrapper">
+                <div *ngIf="showErrorMessage" class="alert alert-danger" role="alert">
+                    <h4>Invalid username and password Please try again</h4>
+                </div>
                 <h2 class="login-title">Sign in</h2>
                 <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="submitForm(loginForm.value)">
                     <div class="form-group">
                         <label for="email" class="sr-only">Email</label>
-                        <input type="email" class="form-control form-control-lg" placeholder="Enter a valid email address" name="userid" formControlName="userid" />
-                        <div *ngIf="loginForm.controls['userid'].hasError('required') && loginForm.controls['userid'].touched" class="alert alert-danger">
+                        <input type="email" class="form-control form-control-lg"
+                            placeholder="Enter a valid email address" name="userid" formControlName="userid" />
+                        <div *ngIf="loginForm.controls['userid'].hasError('required') && loginForm.controls['userid'].touched"
+                            class="alert alert-danger">
                             Enter Valid User ID.
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="password" class="sr-only">Password</label>
-                        <input type="password" class="form-control form-control-lg" placeholder="Enter password" name="password" formControlName="password" />
-                        <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched" class="alert alert-danger">
+                        <input type="password" class="form-control form-control-lg" placeholder="Enter password"
+                            name="password" formControlName="password" />
+                        <div *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched"
+                            class="alert alert-danger">
                             You must include a last name.
                         </div>
-                        <div *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched" class="alert alert-danger">
+                        <div *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched"
+                            class="alert alert-danger">
                             Your last name must be at least 5 characters long.
                         </div>
-                        <div *ngIf="loginForm.controls['password'].hasError('maxlength') && loginForm.controls['password'].touched" class="alert alert-danger">
+                        <div *ngIf="loginForm.controls['password'].hasError('maxlength') && loginForm.controls['password'].touched"
+                            class="alert alert-danger">
                             Your last name cannot exceed 10 characters.
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-5">
                         <!-- <input name="login" id="login" class="btn login-btn" type="button" value="Login"> <a href="#!" class="forgot-password-link">Password?</a> -->
-                        <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-lg btn-block " style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                        <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-lg btn-block "
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                     </div>
                 </form>
 
@@ -54,9 +65,10 @@
                     <i class="fab fa-google"></i> Login with Google+
                 </button>
                 <button style="background-color: #3b5998" class="fb btn-block btn-sm"><i
-                    class="fab fa-facebook me-2"></i> Continue with Facebook</button>
+                        class="fab fa-facebook me-2"></i> Continue with Facebook</button>
 
-                <p class="login-wrapper-footer-text">Don't have an account? <a routerLink="/vol-registration" class="link-danger">Volunteering Registration</a></p>
+                <p class="login-wrapper-footer-text">Don't have an account? <a routerLink="/vol-registration"
+                        class="link-danger">Volunteering Registration</a></p>
             </div>
         </div>
     </div>
