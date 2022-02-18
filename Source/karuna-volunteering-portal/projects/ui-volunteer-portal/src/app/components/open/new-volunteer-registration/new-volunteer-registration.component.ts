@@ -97,10 +97,12 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     return this.form.controls;
   }
   onSubmit(): void {
+    console.log("Form Submited");
     this.submitted = true;
     if (this.form.invalid) {
       return;
     } else {
+      console.log("Form is being processed");
       this.vol.firstname = this.form.value.firstname;
       this.vol.middlename = this.form.value.middlename;
       this.vol.lastname = this.form.value.lastname;

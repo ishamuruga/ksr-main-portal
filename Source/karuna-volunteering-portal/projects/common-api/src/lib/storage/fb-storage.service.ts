@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 //import { AngularFireStorage } from '@angular/fire/storage/angular-fire-storage';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { promises } from 'dns';
 //import { readAndCompressImage } from 'browser-image-resizer';
 import { finalize } from 'rxjs';
 
@@ -30,6 +31,8 @@ export class FbStorageService {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             //this.vol.profile = url;
+            console.log(url);
+            return Promise.resolve(url);
           });
         })
       )

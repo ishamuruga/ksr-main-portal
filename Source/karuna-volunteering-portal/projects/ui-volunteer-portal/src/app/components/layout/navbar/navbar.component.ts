@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
         } else if (x.event==EVENTTYPE.EVENT_LOGGOUT) {
           this.layoutService.isAuthenticated = false;
           this.router.navigate(['./']);
-        }
+        } 
       }
     });
     

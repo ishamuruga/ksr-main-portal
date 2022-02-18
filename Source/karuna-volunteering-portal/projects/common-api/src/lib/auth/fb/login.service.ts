@@ -77,10 +77,10 @@ export class FBLoginService implements LoginManager {
       
       console.log(vuser);
       this.evtService.raiseEvent(EVENTTYPE.EVENT_LOGIN, vuser);
-      return Promise.resolve(vuser);
+      
     })
 
-
+    return Promise.resolve(vuser);
 
 
     // this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password).then(result=>{

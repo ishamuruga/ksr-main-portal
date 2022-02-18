@@ -41,10 +41,10 @@ export class LoginComponent implements OnInit {
     let user:VUser = new VUser();
     user.id = userid;
     user.password = password;
-    this.fbLoginService.signIn(user).then(user=>{
+    this.fbLoginService.signIn(user).then(vuser=>{
       console.log("==========================FB Regusr")
-      console.log(user);
-      sessionStorage.setItem("auth",JSON.stringify(user));
+      console.log(vuser);
+      sessionStorage.setItem("auth",JSON.stringify(vuser));
       this.layoutService.isAuthenticated = true;
       console.log("EMPTY SUB MENU RAISER");
       this.router.navigate(['dashboard']);
