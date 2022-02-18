@@ -14,7 +14,7 @@ const biresizer = require('browser-image-resizer');
 })
 export class FbStorageService {
 
-  constructor(private storage: AngularFireStorage) { }
+  constructor(private storage: AngularFireStorage,private evntService:EventService) { }
 
   async uploadFile(data:any) {
     const file = data.target.files[0];
@@ -31,8 +31,9 @@ export class FbStorageService {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             //this.vol.profile = url;
-            console.log(url);
-            return Promise.resolve(url);
+            //console.log(url);
+            //return Promise.resolve(url);
+
           });
         })
       )
