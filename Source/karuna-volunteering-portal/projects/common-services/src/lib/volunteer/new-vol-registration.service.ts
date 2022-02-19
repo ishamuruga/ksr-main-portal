@@ -27,10 +27,9 @@ export class NewVolRegistrationService {
   }
 
   uploadFile(data:any){
-    this.storage.uploadFile(data).then(x=>{
-      console.log("url");
-      console.log(x);
-    })
+    console.log("...NewVolRegistrationService");
+      
+    return this.storage.uploadFile(data);
   }
 
 }

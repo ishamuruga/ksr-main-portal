@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Volunteer } from 'projects/common-model/src/public-api';
 import { NewVolRegistrationService, Validation } from 'projects/common-services/src/public-api';
 import { ToastrService } from 'ngx-toastr';
+import { throws } from 'assert';
 
 @Component({
   selector: 'app-new-volunteer-registration',
@@ -54,37 +55,37 @@ export class NewVolunteerRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group(
       {
-        firstname: ['', Validators.required],
-        middlename: [''],
-        lastname: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
+        firstname: ['fn', Validators.required],
+        middlename: ['mn'],
+        lastname: ['ln', Validators.required],
+        email: ['aaa@bbb.com', [Validators.required, Validators.email]],
         password: [
-          '',
+          '1234567890',
           [
             Validators.required,
             Validators.minLength(8),
             Validators.maxLength(15),
           ],
         ],
-        confirmpassword: ['', Validators.required],
-        dob: ['', Validators.required],
+        confirmpassword: ['1234567890', Validators.required],
+        dob: ['01/01/2000', Validators.required],
         profile: ['', Validators.required],
         mobile: [
-          '',
+          '1234567890',
           [
             Validators.required,
             Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
           ],
         ],
-        landline: [''],
-        address1: ['', Validators.required],
-        address2: ['', Validators.required],
-        address3: ['', Validators.required],
-        street: ['', Validators.required],
-        state: ['', Validators.required],
-        city: ['', Validators.required],
-        country: ['', Validators.required],
-        pincode: ['', Validators.required],
+        landline: ['1234546454'],
+        address1: ['addr1', Validators.required],
+        address2: ['addr2', Validators.required],
+        address3: ['addr3', Validators.required],
+        street: ['street', Validators.required],
+        state: ['state', Validators.required],
+        city: ['cty', Validators.required],
+        country: ['Australia', Validators.required],
+        pincode: ['123221', Validators.required],
         areas: [null, [Validators.required, Validators.minLength(2)]],
         personVisit: ['', Validators.required],
       },
@@ -97,12 +98,14 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     return this.form.controls;
   }
   onSubmit(): void {
+    console.log(",,,,,profile..." +  this.form.value.profile);
     console.log("Form Submited");
     this.submitted = true;
     if (this.form.invalid) {
       return;
     } else {
       console.log("Form is being processed");
+      
       this.vol.firstname = this.form.value.firstname;
       this.vol.middlename = this.form.value.middlename;
       this.vol.lastname = this.form.value.lastname;
@@ -122,6 +125,8 @@ export class NewVolunteerRegistrationComponent implements OnInit {
       this.vol.areas = this.form.value.areas;
       this.vol.personVisit = this.form.value.personVisit;
       this.vol.status = false;
+      //this.vol.profile = this.form.value.profile;
+      await this.uploadFile2(this.form.value.profile);
       this.volService.saveVolunteer(this.vol).then(() => {
         this.volService.signUp(this.vol.email, this.vol.password).then(
           () => {
@@ -139,9 +144,30 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     }
   }
 
+  async uploadFile2(data: any) {
+    // this.volService.uploadFile(event).then(x=>{
+    //   console.log("$$$$$$$$$$$$$$$");
+    //   console.log(x);
+    // })
+    console.log("..NewVolunteerRegistrationComponent");
+    (await this.volService.uploadFile(event)).subscribe(x=>{
+      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+      this.vol = x;
+      console.log(x)
+    }); 
+  }
+
 
   async uploadFile(event: any) {
-    this.volService.uploadFile(event);
+    // this.volService.uploadFile(event).then(x=>{
+    //   console.log("$$$$$$$$$$$$$$$");
+    //   console.log(x);
+    // })
+    console.log("..NewVolunteerRegistrationComponent");
+    (await this.volService.uploadFile(event)).subscribe(x=>{
+      console.log("$$$$$$$$$$$$$$$");
+      console.log(x)
+    }); 
   }
    
 

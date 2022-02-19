@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 export enum EVENTTYPE {
   EVENT_LOGGOUT=1,
   EVENT_LOGIN=2,
-  MAIN_MENU_CLICK=3
+  MAIN_MENU_CLICK=3,
+  USER_PROFILE_URL=4
 }
 
 @Injectable({
