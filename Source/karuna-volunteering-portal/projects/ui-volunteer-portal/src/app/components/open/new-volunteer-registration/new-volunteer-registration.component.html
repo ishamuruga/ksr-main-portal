@@ -96,11 +96,10 @@
                     </div>
                     <div class="form-group">
                         <label for="profile">Upload Profile:</label>
-                        <!-- <input type="file" formControlName="profile" accept="image/*" class="form-control"
+                        <input type="file" formControlName="profile" accept="image/*" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['profile'].errors }"
-                            (change)="uploadFile($event)" />  -->
-                            <input type="file" formControlName="profile" accept="image/*" class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['profile'].errors }" /> 
+                            (change)="uploadFile($event)" />  
+                            
                         <div *ngIf="submitted && f['profile'].errors" class="invalid-feedback">
                             <div *ngIf="f['profile'].errors['required']">
                                 Profile Picture is required

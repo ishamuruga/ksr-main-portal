@@ -11,9 +11,10 @@ export class FbUserService {
 
   public fetchUserNameById(email:string){
     console.log(email);
-   
     return this.db.collection<Volunteer[]>('volunteers',ref => ref.where('email', '==', email)).valueChanges();
-
-
   }
+
+  
+
+
 }

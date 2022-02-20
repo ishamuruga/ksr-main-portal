@@ -1,7 +1,9 @@
+import { ConstantPool } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 //import { AngularFireStorage } from '@angular/fire/storage/angular-fire-storage';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
+import { throws } from 'assert';
 import { promises } from 'dns';
 import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
 //import { readAndCompressImage } from 'browser-image-resizer';
@@ -20,45 +22,50 @@ export class FbStorageService {
     private evntService:EventService) { }
 
   async uploadFile(data:any) {
-    console.log("...FbStorageService");
+    console.log("....................1");
     const file = data.target.files[0];
     console.log(file);
-    console.log(file.name);
+    console.log("....................1.a");
     let resizedImage = await biresizer.readAndCompressImage(file, imageConfig);
+    console.log("....................2");
     const filepath = file.name;
+    console.log("....................3");
     const fileRef = this.storage.ref(filepath);
+    console.log("....................4");
     //fileRef.getDownloadURL().subscribe(x=>{
     //  console.log(x);
     //});
-    const task = await this.storage.upload(filepath, resizedImage);
+    const task = this.storage.upload(filepath, resizedImage);
     //fileRef.getDownloadURL().subscribe(x=>{
     // console.log("==========================@@@@@@@@@");
     //  console.log(x);
     //  return Promise.resolve(x);
     //});
     
-    console.log(fileRef.getDownloadURL());
-    return fileRef.getDownloadURL();
     
     
     
     
     //console.log(task);
-    //task.percentageChanges().subscribe((percentage) => {
+    task.percentageChanges().subscribe((percentage) => {
       //this.uploadPercent = percentage;
-    //});
-    //task
-    //  .snapshotChanges()
-    //  .pipe(
-    //    finalize(() => {
-    //      fileRef.getDownloadURL().subscribe((url) => {
-    //        //this.vol.profile = url;
-    //        //console.log(url);
-    //        //return Promise.resolve(url);
-    //      });
-    //    })
-    //  )
-    //  .subscribe();
+      console.log(percentage);
+    });
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            //this.vol.profile = url;
+            console.log(url);
+            console.log("()()()()()()()()()()()()()()()()()()()()()()()()()");
+            console.log(url);
+            this.evntService.raiseEvent(EVENTTYPE.USER_PROFILE_URL,{loc:url});  
+            //return Promise.resolve(url);
+          });
+        })
+      )
+      .subscribe();
   }
 }
 

@@ -6,6 +6,7 @@ import { Volunteer } from 'projects/common-model/src/public-api';
 import { NewVolRegistrationService, Validation } from 'projects/common-services/src/public-api';
 import { ToastrService } from 'ngx-toastr';
 import { throws } from 'assert';
+import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
 
 @Component({
   selector: 'app-new-volunteer-registration',
@@ -50,9 +51,17 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     private volService: NewVolRegistrationService,
     private storage: AngularFireStorage,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private evntService:EventService
   ) {}
   ngOnInit(): void {
+    this.evntService.readEvent().subscribe((x:any)=>{
+      if (x.event==EVENTTYPE.USER_PROFILE_URL){
+        console.log("&&&&&&&&&&&&&&&&&&&&&&& Event Captures $$$$$$$$$$$$$");
+        console.log(x.data.loc);
+        this.vol.profile = x.data.loc;
+      };
+    })
     this.form = this.formBuilder.group(
       {
         firstname: ['fn', Validators.required],
@@ -97,7 +106,9 @@ export class NewVolunteerRegistrationComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
-  onSubmit(): void {
+
+
+  async onSubmit() {
     console.log(",,,,,profile..." +  this.form.value.profile);
     console.log("Form Submited");
     this.submitted = true;
@@ -126,11 +137,14 @@ export class NewVolunteerRegistrationComponent implements OnInit {
       this.vol.personVisit = this.form.value.personVisit;
       this.vol.status = false;
       //this.vol.profile = this.form.value.profile;
-      await this.uploadFile2(this.form.value.profile);
+      console.log("=================BEFORE")
+      console.log("=================aFTRE1.0")
       this.volService.saveVolunteer(this.vol).then(() => {
         this.volService.signUp(this.vol.email, this.vol.password).then(
           () => {
+            console.log("=================aFTRE2.0")
             this.toastr.success('Volunteer Registration successfull');
+            
             setTimeout(()=>{
               this.route.navigate(['login']);
             },1000);
@@ -144,30 +158,16 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     }
   }
 
-  async uploadFile2(data: any) {
-    // this.volService.uploadFile(event).then(x=>{
-    //   console.log("$$$$$$$$$$$$$$$");
-    //   console.log(x);
-    // })
-    console.log("..NewVolunteerRegistrationComponent");
-    (await this.volService.uploadFile(event)).subscribe(x=>{
-      console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-      this.vol = x;
-      console.log(x)
-    }); 
-  }
 
 
   async uploadFile(event: any) {
-    // this.volService.uploadFile(event).then(x=>{
-    //   console.log("$$$$$$$$$$$$$$$");
-    //   console.log(x);
-    // })
     console.log("..NewVolunteerRegistrationComponent");
-    (await this.volService.uploadFile(event)).subscribe(x=>{
-      console.log("$$$$$$$$$$$$$$$");
-      console.log(x)
-    }); 
+    // (await this.volService.uploadFile(event)).subscribe(url=>{
+    //   console.log("$$$$$$$$$$$$$$$");
+    //   console.log(url);
+    //   this.vol.profile = url;
+    // }); 
+    this.volService.uploadFile(event);
   }
    
 

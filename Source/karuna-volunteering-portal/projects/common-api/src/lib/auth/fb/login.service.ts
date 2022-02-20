@@ -65,6 +65,10 @@ export class FBLoginService implements LoginManager {
     this.fbUserService.fetchUserNameById(vuser.id).subscribe((x: any) => {
       console.log("+++++++++++++++++++++");
       console.log(x[0].firstname);
+      vuser.photoURL = "https://pro.propeller.in/assets/images/avatar-icon-40x40.png";
+      if (x[0].profile){
+        vuser.photoURL = x[0].profile;
+      }
       let disName:string = x[0].firstname;
       vuser.displayName = "User-X";
       if (disName){

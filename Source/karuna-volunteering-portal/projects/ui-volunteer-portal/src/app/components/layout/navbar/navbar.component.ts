@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { throws } from 'assert';
 import { FBLoginService, FbUserService } from 'projects/common-api/src/public-api';
 import { MainMenu, SubMenu, VUser } from 'projects/common-model/src/public-api';
 import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
               private router:Router) { }
 
   userName:string="-";
+  pUrl!:string;
 
   menus:MainMenu[]=[];
 
@@ -34,6 +36,7 @@ export class NavbarComponent implements OnInit {
           this.vUser = x.data;
           console.log(this.vUser);
           this.userName = this.vUser.displayName + "";
+          this.pUrl = this.vUser.photoURL + "";
           console.log("====" + this.userName);
         } else if (x.event==EVENTTYPE.EVENT_LOGGOUT) {
           this.layoutService.isAuthenticated = false;
