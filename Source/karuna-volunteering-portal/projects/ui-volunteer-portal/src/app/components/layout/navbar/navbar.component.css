@@ -16,3 +16,8 @@
   background-color: yellow;
   cursor:pointer;
 }
+
+.username {
+  width: 80px;
+  text-align: right;
+}
