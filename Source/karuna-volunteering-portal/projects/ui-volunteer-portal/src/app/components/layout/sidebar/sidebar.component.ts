@@ -33,6 +33,12 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+  doNavigate(url:string) {
+    console.log("url..." + url);
+    this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:url});
   }
 
 }

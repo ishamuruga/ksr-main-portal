@@ -20,6 +20,7 @@ import { CommonApiModule } from 'projects/common-api/src/public-api';
 import { LandingComponent } from './secured/landing/landing.component';
 import { NewVolunteerRegistrationComponent } from './components/open/new-volunteer-registration/new-volunteer-registration.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CottonBallComponent } from './components/secured/cotton-ball/cotton-ball.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     LandingComponent,
     ErrorDialogueComponent,
-    NewVolunteerRegistrationComponent
+    NewVolunteerRegistrationComponent,
+    CottonBallComponent
   ],
   imports: [
     BrowserModule,
