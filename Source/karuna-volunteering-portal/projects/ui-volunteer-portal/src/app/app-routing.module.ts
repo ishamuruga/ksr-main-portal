@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
-import { LandingComponent } from './secured/landing/landing.component';
+import { LandingComponent } from './components/secured/landing/landing.component';
 import { NewVolunteerRegistrationComponent } from './components/open/new-volunteer-registration/new-volunteer-registration.component';
 import { CottonBallComponent } from './components/secured/cotton-ball/cotton-ball.component';
+import { NewCottonBallRequestComponent } from './components/secured/new-cotton-ball-request/new-cotton-ball-request.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'dashboard',component:LandingComponent},
   {path:'vol-registration',component : NewVolunteerRegistrationComponent},
   {path:'cotton-ball',component:CottonBallComponent},
+  {path:'new-cotton-ball',component:NewCottonBallRequestComponent},
   {path:'',redirectTo:'/login',pathMatch:'full'}
 ];
 

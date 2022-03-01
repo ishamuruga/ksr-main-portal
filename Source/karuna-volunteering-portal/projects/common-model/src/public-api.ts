@@ -9,4 +9,5 @@ export * from './lib/common-model.module';
 export * from './lib/vol-auth/role';
 export * from './lib/vol-auth/vol-user';
 export * from './lib/layout/menu';
-export * from './lib/karuna/volunteer';
+export * from './lib/karuna/Volunteer';
+export * from './lib/karuna/CottonBall';

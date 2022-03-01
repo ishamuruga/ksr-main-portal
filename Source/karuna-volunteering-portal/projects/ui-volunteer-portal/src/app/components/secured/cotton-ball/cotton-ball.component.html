@@ -27,6 +27,19 @@
         <div class="col">
             <div class="card-columns">
                 <div class="card p-2">
+                    <div class="card-header text-black"><i class="fa fa-solid fa-file"></i> New Request
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-success">
+                            Address to ship the consignment :-
+                            <address><strong>Mrs Karunashraya</strong>,<br/>40, Varthur Rd, <br/>Vaikuntam Layout, Lakshminarayana Pura, <br/>Kundalahalli, Marathahalli, <br/>Bengaluru, <br/>Karnataka 560037</address>
+                        </div>
+                        <div class="right">
+                            <button type="button" (click)="doNavigate('new-cotton-ball')" class="btn btn-outline-warning btn-sm float-right">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2">
                     <div class="card-header text-black"><i class="fa fa-solid fa-spinner"></i> On Going Activity.</div>
                     <div class="card-body">
                         <div class="alert alert-info">
@@ -48,19 +61,7 @@
                         <button type="button" class="btn btn-outline-success btn-sm float-right">View</button>
                     </div>
                 </div>
-                <div class="card p-2">
-                    <div class="card-header text-black"><i class="fa fa-solid fa-monument"></i> Total Number of
-                        Activity.
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-success">
-                            <strong>Info!</strong> Indicates a neutral informative change or action.
-                        </div>
-                        <div class="right">
-                            <button type="button" class="btn btn-outline-warning btn-sm float-right">View</button>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>

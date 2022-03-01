@@ -1,5 +1,7 @@
-export class Volunteer {
-    public id: string = '';
+import { BaseModel } from "./BaseModel";
+
+export class Volunteer extends BaseModel{
+    
     public firstname: string = '';
     public middlename: string = '';
     public lastname: string = '';

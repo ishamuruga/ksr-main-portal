@@ -9,14 +9,10 @@ import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utilit
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private evntService:EventService,private route:Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.evntService.readEvent().subscribe((x:any)=>{
-      if (x.event== EVENTTYPE.SUB_MENU_CLICK){
-        this.route.navigate([x.data.loc]);
-      }
-    })
+
   }
 
 }
