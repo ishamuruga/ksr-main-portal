@@ -10,7 +10,7 @@ import { EventService, EVENTTYPE } from 'projects/common-services/src/public-api
 })
 export class NewCottonBallRequestComponent implements OnInit {
 
-  submitted:boolean = false;
+  submitted: boolean = false;
 
   form: FormGroup = new FormGroup({
     emailid: new FormControl(''),
@@ -24,19 +24,19 @@ export class NewCottonBallRequestComponent implements OnInit {
     plannedShippedDate: new FormControl(''),
   });
 
-  constructor(private formBuilder: FormBuilder,private evntService:EventService) { }
+  constructor(private formBuilder: FormBuilder, private evntService: EventService) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      emailid: ['', Validators.required, Validators.email],
-      ts: ['', Validators.required],
-      shippingproviders: ['', []],
-      shippedDate: ['', []],
+      emailid: [''],
+      ts: [''],
+      shippingproviders: [''],
+      shippedDate: [''],
       cbCount: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
       cbColor: ['', Validators.required],
       plannedCompleteDate: ['', Validators.required],
       plannedShippedDate: ['', Validators.required],
-      awb: ['',[]]
+      awb: ['']
 
     })
   }
@@ -47,25 +47,29 @@ export class NewCottonBallRequestComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    console.log("==================Submit" + this.form.invalid)
+
     if (this.form.invalid) {
-      return ;
+      return;
     } else {
 
       let cb: CottonBall = new CottonBall();
       cb.id = this.form.value.emailid;
-      cb.awb = "";
+      cb.awb = this.form.value.awb;;
       cb.cbColor = this.form.value.cbColor;
       cb.cbCount = this.form.value.cbCount;
       cb.createdDate = new Date();
       cb.plannedCompleteDate = this.form.value.plannedCompleteDate;
       cb.plannedShippedDate = this.form.value.plannedShippedDate;
+      cb.shippingproviders = this.form.value.shippingproviders;
+      cb.ts = new Date();
       console.log("=================================");
       console.log(cb);
     }
   }
 
-  doGoBack(){
-    this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:'cotton-ball'});
+  doGoBack() {
+    this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK, { loc: 'cotton-ball' });
   }
 
 }
