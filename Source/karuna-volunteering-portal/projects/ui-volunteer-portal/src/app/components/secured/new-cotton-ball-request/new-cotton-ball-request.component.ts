@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CottonBall } from 'projects/common-model/src/public-api';
-import { EventService, EVENTTYPE, LoginService } from 'projects/common-services/src/public-api';
+import { CottonBallService } from 'projects/common-services/src/lib/cotton-ball/cotton-ball.service';
+import { EventService, EVENTTYPE, LoginService, SucessDialogueComponent } from 'projects/common-services/src/public-api';
 
 @Component({
   selector: 'app-new-cotton-ball-request',
@@ -28,7 +31,11 @@ export class NewCottonBallRequestComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, 
     private evntService: EventService,
-    private loginService:LoginService) { }
+    private loginService:LoginService,
+    private cbService:CottonBallService,
+    public dialog: MatDialog,
+    private ngZone: NgZone,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -52,7 +59,7 @@ export class NewCottonBallRequestComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  async onSubmit() {
     
     this.submitted = true;
     console.log("==================Submit" + this.form.invalid)
@@ -62,17 +69,29 @@ export class NewCottonBallRequestComponent implements OnInit {
     } else {
 
       let cb: CottonBall = new CottonBall();
-      cb.id = this.form.value.emailid;
-      cb.awb = this.form.value.awb;;
+      cb.id = this.id;
+      cb.awb = this.form.value.awb;
       cb.cbColor = this.form.value.cbColor;
       cb.cbCount = this.form.value.cbCount;
       cb.createdDate = new Date();
       cb.plannedCompleteDate = this.form.value.plannedCompleteDate;
       cb.plannedShippedDate = this.form.value.plannedShippedDate;
       cb.shippingproviders = this.form.value.shippingproviders;
+      cb.shippedDate = this.form.value.shippedDate;
       cb.ts = new Date();
-      console.log("=================================");
-      console.log(cb);
+
+      let res = await this.cbService.saveCottonBall(cb);
+
+      this.ngZone.run(() => {
+        this.dialog.open(SucessDialogueComponent, {
+          data: {
+            message: "Sucessfull Registered the Request #-:"+ res,
+            loc:"/cotton-ball"
+          }
+        });
+      });
+
+      //this.router.navigate(['/cotton-ball']);
     }
   }
 

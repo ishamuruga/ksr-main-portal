@@ -34,7 +34,7 @@ import { NewCottonBallRequestComponent } from './components/secured/new-cotton-b
     ErrorDialogueComponent,
     NewVolunteerRegistrationComponent,
     CottonBallComponent,
-    NewCottonBallRequestComponent
+    NewCottonBallRequestComponent,
   ],
   imports: [
     BrowserModule,

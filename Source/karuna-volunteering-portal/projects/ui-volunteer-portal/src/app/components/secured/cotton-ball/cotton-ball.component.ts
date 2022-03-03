@@ -12,7 +12,9 @@ export class CottonBallComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private evntService: EventService, private route: Router) { }
+  constructor(private evntService: EventService, 
+    private route: Router
+    ) { }
 
   ngOnInit(): void {
 
