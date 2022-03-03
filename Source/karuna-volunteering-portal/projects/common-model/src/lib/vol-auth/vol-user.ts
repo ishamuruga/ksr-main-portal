@@ -6,36 +6,36 @@ export class VUser {
     active: boolean = false;
     roles: Role[] = [];
     photoURL?: string;
-    displayName?: string;
+    displayName: string="";
     loggedInTS!: Date;
     accessToken:string="";
     refreshToken:string="";
-
+    name:string="";
     constructor(){}
 }
 
-export const users: VUser[] = [
-    {
-        id: "rajk",
-        password: "rajk123",
-        active: true,
-        loggedInTS: new Date(),
-        roles: [
-            { id: 1, name: "admin" },
-            { id: 2, name: "vol" }
-        ],
-        accessToken:"",
-        refreshToken:""
-    },
-    {
-        id: "kala",
-        password: "kala123",
-        active: true,
-        loggedInTS: new Date(),
-        roles: [
-            { id: 2, name: "vol" }
-        ],
-        accessToken:"",
-        refreshToken:""
-    }
-]
+// export const users: VUser[] = [
+//     {
+//         id: "rajk",
+//         password: "rajk123",
+//         active: true,
+//         loggedInTS: new Date(),
+//         roles: [
+//             { id: 1, name: "admin" },
+//             { id: 2, name: "vol" }
+//         ],
+//         accessToken:"",
+//         refreshToken:""
+//     },
+//     {
+//         id: "kala",
+//         password: "kala123",
+//         active: true,
+//         loggedInTS: new Date(),
+//         roles: [
+//             { id: 2, name: "vol" }
+//         ],
+//         accessToken:"",
+//         refreshToken:""
+//     }
+// ]

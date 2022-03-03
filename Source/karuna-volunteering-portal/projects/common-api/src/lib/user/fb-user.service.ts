@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Volunteer } from 'projects/common-model/src/public-api';
+import { first, single, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class FbUserService {
     console.log(email);
     return this.db.collection<Volunteer[]>('volunteers',ref => ref.where('email', '==', email)).valueChanges();
   }
+
+ 
 
   
 

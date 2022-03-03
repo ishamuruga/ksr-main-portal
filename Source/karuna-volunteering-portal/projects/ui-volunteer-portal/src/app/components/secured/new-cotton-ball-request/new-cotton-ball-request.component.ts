@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CottonBall } from 'projects/common-model/src/public-api';
-import { EventService, EVENTTYPE } from 'projects/common-services/src/public-api';
+import { EventService, EVENTTYPE, LoginService } from 'projects/common-services/src/public-api';
 
 @Component({
   selector: 'app-new-cotton-ball-request',
@@ -11,6 +11,8 @@ import { EventService, EVENTTYPE } from 'projects/common-services/src/public-api
 export class NewCottonBallRequestComponent implements OnInit {
 
   submitted: boolean = false;
+  id:string="";
+  displayName:string="";
 
   form: FormGroup = new FormGroup({
     emailid: new FormControl(''),
@@ -24,7 +26,9 @@ export class NewCottonBallRequestComponent implements OnInit {
     plannedShippedDate: new FormControl(''),
   });
 
-  constructor(private formBuilder: FormBuilder, private evntService: EventService) { }
+  constructor(private formBuilder: FormBuilder, 
+    private evntService: EventService,
+    private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -38,7 +42,10 @@ export class NewCottonBallRequestComponent implements OnInit {
       plannedShippedDate: ['', Validators.required],
       awb: ['']
 
-    })
+    });
+    console.log(this.loginService.fetchEmailFromStorage() + "," + this.loginService.fetchUserNameFromStorage());
+    this.id = this.loginService.fetchEmailFromStorage();
+    this.displayName = this.loginService.fetchUserNameFromStorage();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -46,6 +53,7 @@ export class NewCottonBallRequestComponent implements OnInit {
   }
 
   onSubmit() {
+    
     this.submitted = true;
     console.log("==================Submit" + this.form.invalid)
 

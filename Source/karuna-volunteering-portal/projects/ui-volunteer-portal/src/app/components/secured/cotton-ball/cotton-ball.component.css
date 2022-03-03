@@ -21,3 +21,7 @@
       align-content: right;
       align-items: right;
   }
+
+  .small-text {
+      font-size: small;
+  }

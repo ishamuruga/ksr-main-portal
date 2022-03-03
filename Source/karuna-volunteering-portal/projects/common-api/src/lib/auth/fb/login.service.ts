@@ -40,30 +40,18 @@ export class FBLoginService implements LoginManager {
     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     let result = await this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password);
     console.log(result);
-
-
     let data: any = result.user?.toJSON();
     console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     console.log(data)
     let vuser: VUser = new VUser();
     vuser.id = result.user?.email + "";
-
-    //let disName = "";
-
-
-
-
-
-
-
-
-    //disName = disName ? disName : "User-X";
-    //vuser.displayName = disName;
     vuser.loggedInTS = new Date();
     vuser.accessToken = data.stsTokenManager.accessToken;
-    vuser.refreshToken = data.stsTokenManager.refreshToken;
+    vuser.refreshToken = data.stsTokenManager.refreshToken; 
+    
     this.fbUserService.fetchUserNameById(vuser.id).subscribe((x: any) => {
       console.log("+++++++++++++++++++++");
+      sessionStorage.setItem("vol",JSON.stringify(x[0]));
       console.log(x[0].firstname);
       vuser.photoURL = "https://pro.propeller.in/assets/images/avatar-icon-40x40.png";
       if (x[0].profile){
@@ -78,43 +66,13 @@ export class FBLoginService implements LoginManager {
           vuser.displayName = disName;
         }
       }
-      
       console.log(vuser);
+      
       this.evtService.raiseEvent(EVENTTYPE.EVENT_LOGIN, vuser);
       
     })
 
     return Promise.resolve(vuser);
-
-
-    // this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password).then(result=>{
-    //   let data: any = result.user?.toJSON();
-    //   console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-    //   console.log(data)
-    //   let vuser: VUser = new VUser();
-    //   vuser.id = result.user?.email + "";
-    //   let disName = result.user?.providerData[0]?.displayName;
-    //   disName = disName ? disName : "User-X";
-    //   vuser.displayName = disName;
-    //   vuser.loggedInTS = new Date();
-    //   vuser.accessToken = data.stsTokenManager.accessToken;
-    //   vuser.refreshToken = data.stsTokenManager.refreshToken;
-    //   this.evtService.raiseEvent(EVENTTYPE.EVENT_LOGIN,vuser);
-    //   //return Promise.resolve(vuser);
-    // }).catch(err=>{
-    //   console.log("ERRRRR");
-    //   console.log(err);
-    //   throw new Error("IN VAALLLLID LOGIN");
-    //   //return Promise.reject("ERROR In Login");
-    // }).finally(()=>{ 
-    //   console.log("Login Completed");
-    // })
-
-
-
-
-
-
   }
 
   async signOut(): Promise<boolean> {
@@ -149,11 +107,6 @@ export class FBLoginService implements LoginManager {
     console.log("=========================5");
     console.log(data);
     console.log("=========================6");
-
-    //let dd= this.updateUserData(credential.user);
-
-
-
     return Promise.resolve(data);
 
   }
