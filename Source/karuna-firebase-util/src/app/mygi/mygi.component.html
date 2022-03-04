@@ -1,0 +1,9 @@
+<ag-grid-angular 
+    style="width: 700px; height: 500px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    [pagination]="true"
+    [paginationPageSize]="5"
+    (paginationChanged)="onPaginationChanged($event)">
+</ag-grid-angular>

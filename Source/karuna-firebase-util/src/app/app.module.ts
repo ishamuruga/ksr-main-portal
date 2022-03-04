@@ -7,17 +7,23 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { MygiComponent } from './mygi/mygi.component';
 
+import { AgGridModule } from 'ag-grid-angular';
+import { VirgridComponent } from './ui/virgrid/virgrid.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MygiComponent,
+    VirgridComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AgGridModule.withComponents(null)
   ],
   providers: [],
   bootstrap: [AppComponent]
