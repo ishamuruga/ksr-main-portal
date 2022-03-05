@@ -1,12 +1,12 @@
 <p>virgrid works!</p>
-<div *ngFor="let a of rows">
+<!-- <div *ngFor="let a of rows">
     {{a.kv[0].key}} -- {{a.kv[1].key}} -- {{a.kv[2].key}}
 </div>
 <div *ngFor="let a of rows">
     <div *ngFor="let b of colData">
         {{a.kv[b.id].kvalue}} 
     </div>
-</div>
+</div> -->
 <table border="1">
     <tr>
         <td *ngFor="let c of colData">{{c.name}}</td>
@@ -16,4 +16,7 @@
             {{a.kv[b.id].kvalue}} 
         </td>
     </tr>
+
 </table>
+<button (click)="doPrev()">prev</button>
+<button (click)="doNext()">Next</button>

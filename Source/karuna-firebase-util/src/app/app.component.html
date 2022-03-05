@@ -1,7 +1,9 @@
 <div>
   <button (click)="createCountries()">Create Countries</button>
+  <button (click)="createCBall()">Create Cotton Ball</button>
   <hr/>
   <app-virgrid 
       [rowData]="rowData"
-      [colData]="colData"></app-virgrid>
+      [colData]="colData"
+      [datasource]="ds"></app-virgrid>
 </div>

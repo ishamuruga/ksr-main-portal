@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { countries } from './data';
+import { countries,cottonBall } from './data';
 
 
 
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'karuna-firebase-util';
 
   
-
+  ds = "cotton-ball";
 
   rowData = [
     {id:1,name:"baba",email:'baba@gmail.com'},
@@ -25,8 +25,8 @@ export class AppComponent implements OnInit {
 
   colData = [
     {id:0,position:1,dt:"number",sort:false,name:"id"},
-    {id:1,position:2,dt:"string",sort:true,name:"name"},
-    {id:2,position:3,dt:"string,email",sort:true,name:"email"}
+    {id:1,position:3,dt:"string,email",sort:true,name:"email"},
+    {id:2,position:2,dt:"string",sort:true,name:"name"}
   ]
 
 
@@ -42,6 +42,15 @@ export class AppComponent implements OnInit {
 
       console.log(x);
       this.db.collection("country").add(x);
+    })
+    console.log("Completed........")
+  }
+  
+  createCBall(){
+    cottonBall.map(x=>{
+
+      console.log(x);
+      this.db.collection("cotton-ball").add(x);
     })
     console.log("Completed........")
   }
