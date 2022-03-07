@@ -7,16 +7,22 @@
         {{a.kv[b.id].kvalue}} 
     </div>
 </div> -->
-<table border="1">
-    <tr>
-        <td *ngFor="let c of colData">{{c.name}}</td>
-    </tr>
-    <tr *ngFor="let a of rows">
-        <td *ngFor="let b of colData">
-            {{a.kv[b.id].kvalue}} 
-        </td>
-    </tr>
+<table style="width:80%" border="1" class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" *ngFor="let c of colData">{{c.name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let a of rows">
+            <th *ngFor="let b of colData">
+                {{a.kv[b.id].kvalue}}
+            </th>
+        </tr>
+    </tbody>
 
 </table>
+
+
 <button (click)="doPrev()">prev</button>
 <button (click)="doNext()">Next</button>
