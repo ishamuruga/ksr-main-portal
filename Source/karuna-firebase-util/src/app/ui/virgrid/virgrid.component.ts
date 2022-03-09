@@ -34,6 +34,7 @@ export class VirgridComponent implements OnInit {
 
   firstInResponse: any = [];
   lastInResponse: any = [];
+  
   prev_strt_at: any = [];
 
 
@@ -49,18 +50,20 @@ export class VirgridComponent implements OnInit {
       ref => ref.limit(this.pSize)
       .orderBy('id', 'asc')
     ).snapshotChanges().subscribe((response: any) => {
+      
       if (!response.length) {
         console.log("No Data Available");
         return false;
       }
+      this.firstInResponse = response[0].payload.doc;
+      this.lastInResponse = response[response.length - 1].payload.doc;
+
       this.rows = [];
       for (let item of response) {
         this.populateData(item.payload.doc.data());
       }
-
-      this.firstInResponse = response[0].payload.doc;
-      this.lastInResponse = response[response.length - 1].payload.doc;
-
+      this.prev_strt_at = [];
+      this.pagination_clicked_count = 0;
       this.push_prev_startAt(this.firstInResponse);
       return;
     }, err => {
@@ -128,18 +131,20 @@ export class VirgridComponent implements OnInit {
         if (!response.docs.length) {
           console.log("No More Next....")
           this.nextDisabled = true;
+          this.prevDisabled = false;
           return;
         }
         this.firstInResponse = response.docs[0];
         this.lastInResponse = response.docs[response.docs.length - 1];
         this.push_prev_startAt(this.firstInResponse);
         this.rows = [];
-        this.pagination_clicked_count++;
+        
         let tempCounter = 0;
         for (let item of response.docs) {
           this.populateData(item.data())
           tempCounter++;
         }
+        this.pagination_clicked_count++;
         console.log(tempCounter + "," + this.pSize);
         if (tempCounter < this.pSize) {
           console.log("&&");
