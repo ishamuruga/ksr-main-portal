@@ -11,12 +11,14 @@ import { MygiComponent } from './mygi/mygi.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { VirgridComponent } from './ui/virgrid/virgrid.component';
+import { Virgrid2Component } from './virgrid2/virgrid2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MygiComponent,
-    VirgridComponent
+    VirgridComponent,
+    Virgrid2Component
   ],
   imports: [
     BrowserModule,
