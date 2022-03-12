@@ -5,6 +5,7 @@ import { LandingComponent } from './components/secured/landing/landing.component
 import { NewVolunteerRegistrationComponent } from './components/open/new-volunteer-registration/new-volunteer-registration.component';
 import { CottonBallComponent } from './components/secured/cotton-ball/cotton-ball.component';
 import { NewCottonBallRequestComponent } from './components/secured/new-cotton-ball-request/new-cotton-ball-request.component';
+import { PendingCottonBallComponent } from './components/secured/pending-cotton-ball/pending-cotton-ball.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path:'vol-registration',component : NewVolunteerRegistrationComponent},
   {path:'cotton-ball',component:CottonBallComponent},
   {path:'new-cotton-ball',component:NewCottonBallRequestComponent},
+  {path:'pending-cotton-ball',component:PendingCottonBallComponent},
   {path:'',redirectTo:'/login',pathMatch:'full'}
 ];
 

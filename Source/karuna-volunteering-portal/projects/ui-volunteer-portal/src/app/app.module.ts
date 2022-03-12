@@ -22,6 +22,8 @@ import { NewVolunteerRegistrationComponent } from './components/open/new-volunte
 import { ToastrModule } from 'ngx-toastr';
 import { CottonBallComponent } from './components/secured/cotton-ball/cotton-ball.component';
 import { NewCottonBallRequestComponent } from './components/secured/new-cotton-ball-request/new-cotton-ball-request.component';
+import { PendingCottonBallComponent } from './components/secured/pending-cotton-ball/pending-cotton-ball.component';
+import { CommonUiComponentsModule } from 'projects/common-ui-components/src/public-api';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { NewCottonBallRequestComponent } from './components/secured/new-cotton-b
     NewVolunteerRegistrationComponent,
     CottonBallComponent,
     NewCottonBallRequestComponent,
+    PendingCottonBallComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { NewCottonBallRequestComponent } from './components/secured/new-cotton-b
     MatSelectModule,
     CommonApiModule,
     ToastrModule.forRoot(),
+    CommonUiComponentsModule
   ],
   providers: [
      { provide: ErrorHandler, useClass: GlobalExceptionService }
