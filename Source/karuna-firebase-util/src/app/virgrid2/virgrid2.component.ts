@@ -26,6 +26,8 @@ export class Virgrid2Component implements OnInit {
   nextDisabled = true;
   prevDisabled = true;
 
+  pagination_clicked_count = 0;
+
   prev_strt_at:any[]=[];
 
   constructor(private store: AngularFirestore) { }
@@ -52,10 +54,12 @@ export class Virgrid2Component implements OnInit {
       this.firstInResponse = response[0].payload.doc;
       this.lastInResponse = response[response.length - 1].payload.doc;
 
-      this.prev_start_state.push(this.firstInResponse);
-      this.prev_start_state.forEach(console.log);
+      
+
+      this.push_prev_startAt(this.firstInResponse);
 
       this.rows = [];
+      this.pagination_clicked_count = 0;
       for (let item of response) {
         this.populateData(item.payload.doc.data());
       }
@@ -91,9 +95,9 @@ export class Virgrid2Component implements OnInit {
           this.populateData(item.data())
           tempCounter++;
         }
+        this.pagination_clicked_count++;
 
-        this.prev_start_state.push(this.firstInResponse);
-        this.prev_start_state.forEach(console.log);
+        this.push_prev_startAt(this.firstInResponse);
 
         console.log(tempCounter + "," + this.pSize);
         
@@ -103,9 +107,14 @@ export class Virgrid2Component implements OnInit {
   }
 
   prev() {
+    if (this.get_prev_startAt() == undefined) {
+      this.prevDisabled = true;
+      this.nextDisabled = false;
+      return;
+    }
     this.store.collection(this.datasource, ref => ref
       .orderBy('id', 'asc')
-      .startAt(this.prev_start_state[this.prev_start_state.length-2])
+      .startAt(this.get_prev_startAt())
       .endBefore(this.firstInResponse)
       .limit(this.pSize))
       .get()
@@ -116,19 +125,20 @@ export class Virgrid2Component implements OnInit {
            this.prevDisabled = true;
            this.nextDisabled = false;
            return;
-         }
+        }
         this.firstInResponse = response.docs[0];
         this.lastInResponse = response.docs[response.docs.length - 1];
         this.rows = [];
-        let tempCounter = 0;
         for (let item of response.docs) {
+          //console.log("******");
+          //console.log(item);
           this.populateData(item.data())
-          tempCounter++;
         }
-        console.log(tempCounter);
-        
+        this.pagination_clicked_count--;
+ 
         this.nextDisabled = false;
 
+        this.pop_prev_startAt(this.firstInResponse);
 
         return;
       }, err => {
@@ -160,4 +170,20 @@ export class Virgrid2Component implements OnInit {
   push_prev_startAt(prev_first_doc:any) {
     this.prev_strt_at.push(prev_first_doc);
   }
+
+  pop_prev_startAt(prev_first_doc:any) {
+    this.prev_strt_at.forEach(element => {
+      if (prev_first_doc.data().id == element.data().id) {
+        element = null;
+      }
+    });
+  }
+
+  get_prev_startAt() {
+    if (this.prev_strt_at.length > (this.pagination_clicked_count + 1))
+      this.prev_strt_at.splice(this.prev_strt_at.length - 2, this.prev_strt_at.length - 1);
+    return this.prev_strt_at[this.pagination_clicked_count - 1];
+  }
+  
 }
+
