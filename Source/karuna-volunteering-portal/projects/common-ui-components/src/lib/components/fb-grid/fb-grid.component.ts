@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FbCommonUtilService } from 'projects/common-api/src/public-api';
+import { timestamp } from 'rxjs';
 import { KVData, RowData } from '../../model/Grid';
 
 @Component({
@@ -20,6 +22,9 @@ export class FbGridComponent implements OnInit {
 
   @Input()
   rowData:any;
+
+  @Input()
+  id:string="";
   
   pSize = 5;
   firstInResponse: any;
@@ -32,11 +37,12 @@ export class FbGridComponent implements OnInit {
 
   prev_strt_at:any[]=[];
 
-  constructor(private fbUtilService: FbCommonUtilService ) { }
+  constructor(private fbUtilService: FbCommonUtilService,private datePipe:DatePipe ) { }
 
   ngOnInit(): void { 
     console.log(this.datasource);
     console.log(this.colData);
+    console.log(this.id);
     this.loadItems();
   }
 
@@ -44,7 +50,7 @@ export class FbGridComponent implements OnInit {
     this.nextDisabled = false;
     this.prevDisabled = true;
     console.log(this.datasource);
-    let itemsCollection = this.fbUtilService.loadItems(this.datasource,this.pSize).subscribe((response: any) => {
+    let itemsCollection = this.fbUtilService.loadItems(this.datasource,this.pSize,this.id).subscribe((response: any) => {
 
       if (!response.length) {
         console.log("No Data Available");
@@ -75,7 +81,7 @@ export class FbGridComponent implements OnInit {
 
   next() {
     this.prevDisabled = false;
-    this.fbUtilService.getNext(this.datasource,this.pSize,this.lastInResponse).subscribe((response: any) => {
+    this.fbUtilService.getNext(this.datasource,this.pSize,this.lastInResponse,this.id).subscribe((response: any) => {
         if (!response.docs.length) {
           console.log("No More Next....")
           this.nextDisabled = true;
@@ -110,7 +116,7 @@ export class FbGridComponent implements OnInit {
       return;
     }
 
-    this.fbUtilService.getPrev(this.datasource,this.pSize,this.firstInResponse,this.get_prev_startAt()).subscribe((response: any) => {
+    this.fbUtilService.getPrev(this.datasource,this.pSize,this.firstInResponse,this.get_prev_startAt(),this.id).subscribe((response: any) => {
         console.log("......"+response.docs.length);
         if (!response.docs.length) {
            console.log("No More Prev....")
@@ -149,7 +155,19 @@ export class FbGridComponent implements OnInit {
         if (key === x.name) {
           let kv: KVData = new KVData();
           kv.key = key;
-          kv.kvalue = value as string;
+
+          switch (x.dtype) {
+            case "date":
+              kv.kvalue = this.datePipe.transform(value+"",'yyyy-MMM-dd') + "";
+              break;
+          
+            default:
+              kv.kvalue = value as string;
+              break;
+          }
+        
+          
+          
           KVDatas.push(kv);
           break;
         }

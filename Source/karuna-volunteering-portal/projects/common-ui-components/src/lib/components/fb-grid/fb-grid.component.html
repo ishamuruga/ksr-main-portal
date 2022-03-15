@@ -1,6 +1,6 @@
 <div class="card" style="width:80%;">
     <div class="card-body">
-        <h5 class="card-title">{{title}}</h5>
+        <h3 class="card-header">{{title}}</h3>
         <!-- <p class="card-text">
             Some quick example text to build on the card title and make up the bulk of the card's
             content.</p> -->
@@ -8,13 +8,15 @@
             <table style="width:100%" class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col" *ngFor="let c of colData">{{c.name}}</th>
+                        <th scope="col" *ngFor="let c of colData">
+                            <div class="smallheadertext">{{c.display}}</div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let a of rows">
                         <th scope="col" *ngFor="let b of colData">
-                            {{a.kv[b.id].kvalue}}
+                            <div class="smallcoltext">{{a.kv[b.id].kvalue}}</div>
                         </th>
                     </tr>
                 </tbody>
