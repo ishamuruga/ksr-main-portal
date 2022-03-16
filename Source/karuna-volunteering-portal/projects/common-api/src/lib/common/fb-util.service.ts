@@ -10,11 +10,11 @@ export class FbCommonUtilService {
 
   loadItems(dataSource:string,pSize:number,owner:string){
     console.log(owner);
-      return  this.store.collection(dataSource,
+      return this.store.collection(dataSource,
         ref => ref
           .where('id', '==', owner)
           .limit(pSize)
-          .orderBy('id', 'asc')
+//          .orderBy('ts', 'asc')
       ).snapshotChanges();
   }
   
@@ -23,7 +23,7 @@ export class FbCommonUtilService {
     return this.store.collection(dataSource, ref => ref
       .where('id', '==', owner)
       .limit(pSize)
-      .orderBy('id', 'asc')
+  //    .orderBy('ts', 'desc')
       .startAfter(lastInResponse))
       .get()
   }
@@ -31,7 +31,7 @@ export class FbCommonUtilService {
   getPrev(dataSource:string,pSize:number,firstInResponse:any,get_prev_startAt:any,owner:string){
     return this.store.collection(dataSource, ref => ref
       .where('id', '==', owner)
-      .orderBy('id', 'asc')
+  //    .orderBy('ts', 'desc')
       .startAt(get_prev_startAt)
       .endBefore(firstInResponse)
       .limit(pSize))

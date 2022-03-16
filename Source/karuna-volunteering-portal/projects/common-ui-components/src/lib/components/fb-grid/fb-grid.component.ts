@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FbCommonUtilService } from 'projects/common-api/src/public-api';
+import { EventService, EVENTTYPE } from 'projects/common-services/src/public-api';
 import { timestamp } from 'rxjs';
 import { KVData, RowData } from '../../model/Grid';
 
@@ -37,7 +38,8 @@ export class FbGridComponent implements OnInit {
 
   prev_strt_at:any[]=[];
 
-  constructor(private fbUtilService: FbCommonUtilService,private datePipe:DatePipe ) { }
+  constructor(private fbUtilService: FbCommonUtilService,
+              private datePipe:DatePipe,private evtService:EventService ) { }
 
   ngOnInit(): void { 
     console.log(this.datasource);
@@ -195,5 +197,8 @@ export class FbGridComponent implements OnInit {
     return this.prev_strt_at[this.pagination_clicked_count - 1];
   }
 
+  back() {
+    this.evtService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:'cotton-ball'})
+  }
 
 }
