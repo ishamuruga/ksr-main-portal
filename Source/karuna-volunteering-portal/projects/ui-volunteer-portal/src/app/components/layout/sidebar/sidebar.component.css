@@ -68,3 +68,8 @@
     left: 10px;
     z-index: 99999999 !important;
 }
+
+.custom:hover {
+    background-color: lightblue; 
+    cursor:pointer;
+  }

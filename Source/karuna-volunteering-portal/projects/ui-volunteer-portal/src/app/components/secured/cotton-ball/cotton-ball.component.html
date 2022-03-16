@@ -1,0 +1,68 @@
+<div>
+    <div class="container" style="margin-top:10px">
+        <div>
+            <!-- Design inspired from https://www.hotjar.com/ -->
+            <div class="jumbotron">
+                <div class="container text-center text-lg-left">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1 class="display-4">Thanks for supporting our Cotton Ball making request</h1>
+                            <p class="text-muted">Please refer to attached video for reference</p>
+                            <span class="text-center d-inline-block">
+                                <a class="btn btn-primary btn-lg w-100" target="new"
+                                    href="https://www.youtube.com/watch?v=QLEAsSU_dpg" role="button">How to Make Cotton
+                                    Balls</a>
+                            </span>
+                        </div>
+                        <div class="col-lg-4 align-items-center d-flex">
+                            <img src="https://hips.hearstapps.com/ghk.h-cdn.co/assets/cm/15/11/480x262/54ff2672323bf-cotton-balls-hands-3-msc.jpg?resize=768:*"
+                                alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="col">
+            <div class="card-columns">
+                <div class="card p-2">
+                    <div class="card-header text-black"><i class="fa fa-solid fa-file"></i> New Request
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-success small-text">
+                            Address to ship the consignment :-
+                            <address><strong>Mrs Karunashraya</strong>,<br/>40, Varthur Rd, <br/>Vaikuntam Layout, Lakshminarayana Pura, <br/>Kundalahalli, Marathahalli, <br/>Bengaluru, <br/>Karnataka 560037</address>
+                        </div>
+                        <div class="right">
+                            <button type="button" (click)="doNavigate('new-cotton-ball')" class="btn btn-outline-warning btn-sm float-right">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-2">
+                    <div class="card-header text-black"><i class="fa fa-solid fa-spinner"></i> On Going Activity.</div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <strong>Info!</strong> Indicates a neutral informative change or action.
+                        </div>
+                        
+                        <button type="button" (click)="doNavigate('pending-cotton-ball')" class="btn btn-outline-primary btn-sm float-right">View OnGoing</button>
+                    
+                    </div>
+                </div>
+                <div class="card p-2">
+                    <div class="card-header text-black"><i class="fa fa-solid fa-flag-checkered"></i> Completed
+                        Activity.
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <strong>Info!</strong> Indicates a neutral informative change or action.
+                        </div>
+                        <button type="button" class="btn btn-outline-success btn-sm float-right">View</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

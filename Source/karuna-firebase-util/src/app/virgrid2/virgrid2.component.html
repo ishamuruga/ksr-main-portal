@@ -1,0 +1,43 @@
+<p>virgrid works!</p>
+<div class="card" style="width:80%;">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <!-- <p class="card-text">
+            Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p> -->
+        <div class="card-text">
+            <table style="width:100%" class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" *ngFor="let c of colData">{{c.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let a of rows">
+                        <th scope="col" *ngFor="let b of colData">
+                            {{a.kv[b.id].kvalue}}
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <p style="text-align: right;" class="mb-2 text-muted">Some example text. Some example text.</p> -->
+        <div class="card-text">
+            <button (click)="next()" class="btn btn btn-info float-right btn-sm mr-3 float-right"
+                type="button" [disabled]="nextDisabled">next</button>
+            <button (click)="prev()" class="btn btn btn-info float-right btn-sm mr-3 float-right"
+                type="button" [disabled]="prevDisabled">prev</button>
+        </div>
+    </div>
+</div>
+
+<!-- <div *ngFor="let a of rows">
+    {{a.kv[0].key}} -- {{a.kv[1].key}} -- {{a.kv[2].key}}
+</div>
+<div *ngFor="let a of rows">
+    <div *ngFor="let b of colData">
+        {{a.kv[b.id].kvalue}} 
+    </div>
+    w-auto
+    table-fixed
+</div> -->

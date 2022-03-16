@@ -1,27 +1,207 @@
-# KarunaFirebaseUtil
+https://blog.ag-grid.com/get-started-with-angular-grid-in-5-minutes/
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
+https://www.freakyjolly.com/angular-8-firestore-show-firestore-data-with-next-previous-pagination-in-tabular-form/
 
-## Development server
+https://javascript.plainenglish.io/pagination-in-angular-firestore-firebase-database-add-get-documents-14ca723e9c24
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+=============================================================================================
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { KVData, RowData } from 'src/app/mygi/Grid';
 
-## Code scaffolding
+@Component({
+  selector: 'app-virgrid',
+  templateUrl: './virgrid.component.html',
+  styleUrls: ['./virgrid.component.css']
+})
+export class VirgridComponent implements OnInit {
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  @Input()
+  rowData: any;
 
-## Build
+  deleteme: boolean = false;
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  pSize = 5;
 
-## Running unit tests
+  @Input()
+  datasource: string = "";
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  @Input()
+  colData: any;
 
-## Running end-to-end tests
+  prevDisabled: boolean = true;
+  nextDisabled: boolean = false;
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  rows: RowData[] = [];
 
-## Further help
+  public colCount: number = 0;
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  pagination_clicked_count = 0;
+
+
+  firstInResponse: any = [];
+  lastInResponse: any = [];
+  prev_strt_at: any = [];
+
+
+  constructor(private store: AngularFirestore) { }
+
+  ngOnInit(): void {
+    if (this.deleteme) {
+      throw new Error("Stop Runing");
+    }
+    console.log(this.datasource);
+    this.colCount = this.colData.length;
+    let itemsCollection = this.store.collection(this.datasource,
+      ref => ref.limit(this.pSize)
+      .orderBy('id', 'asc')
+    ).snapshotChanges().subscribe((response: any) => {
+      
+      if (!response.length) {
+        console.log("No Data Available");
+        return false;
+      }
+      this.firstInResponse = response[0].payload.doc;
+      this.lastInResponse = response[response.length - 1].payload.doc;
+
+      this.rows = [];
+      for (let item of response) {
+        this.populateData(item.payload.doc.data());
+      }
+      this.prev_strt_at = [];
+      this.pagination_clicked_count = 0;
+      this.push_prev_startAt(this.firstInResponse);
+      return;
+    }, err => {
+      console.log(err);
+    }, () => {
+      console.log("Finally....")
+    });
+  }
+
+  push_prev_startAt(prev_first_doc: any) {
+    this.prev_strt_at.push(prev_first_doc);
+  }
+
+  doPrev() {
+    console.log("++++++++");
+    if (this.get_prev_startAt() == undefined) {
+      this.prevDisabled = true;
+      this.nextDisabled = false;
+      return;
+    }
+    this.store.collection(this.datasource, ref => ref
+      .orderBy('id', 'asc')
+      .startAt(this.get_prev_startAt())
+      .endBefore(this.firstInResponse)
+      .limit(this.pSize))
+      .get()
+      .subscribe((response: any) => {
+        console.log("......"+response.docs.length);
+        if (!response.docs.length) {
+           console.log("No More Prev....")
+           this.prevDisabled = true;
+           this.nextDisabled = false;
+           return;
+         }
+        this.firstInResponse = response.docs[0];
+        this.lastInResponse = response.docs[response.docs.length - 1];
+        this.rows = [];
+        let tempCounter = 0;
+        for (let item of response.docs) {
+          this.populateData(item.data())
+          tempCounter++;
+        }
+        console.log(tempCounter);
+        this.pagination_clicked_count--;
+
+        this.nextDisabled = false;
+
+
+        this.pop_prev_startAt(this.firstInResponse);
+        return;
+      }, err => {
+        console.log("=======Error");
+        console.log(err);
+      }, () => {
+        console.log("Finally.........");
+      })
+  }
+
+  doNext() {
+    this.store.collection(this.datasource, ref => ref
+      .limit(this.pSize).orderBy('id', 'asc')
+      .startAfter(this.lastInResponse))
+      .get()
+      .subscribe((response: any) => {
+        if (!response.docs.length) {
+          console.log("No More Next....")
+          this.nextDisabled = true;
+          this.prevDisabled = false;
+          return;
+        }
+        this.firstInResponse = response.docs[0];
+        this.lastInResponse = response.docs[response.docs.length - 1];
+        this.push_prev_startAt(this.firstInResponse);
+        this.rows = [];
+        
+        let tempCounter = 0;
+        for (let item of response.docs) {
+          this.populateData(item.data())
+          tempCounter++;
+        }
+        this.pagination_clicked_count++;
+        console.log(tempCounter + "," + this.pSize);
+        if (tempCounter < this.pSize) {
+          console.log("&&");
+          this.nextDisabled = true;
+        }
+
+        this.prevDisabled = false;
+
+        
+        return;
+      })
+  }
+
+  populateData(item: any) {
+    let KVDatas: KVData[] = [];
+    let tuple: RowData = new RowData();
+    this.colData.map((x: any) => {
+      for (const [key, value] of Object.entries(item)) {
+        if (key === x.name) {
+          let kv: KVData = new KVData();
+          kv.key = key;
+          kv.kvalue = value as string;
+          KVDatas.push(kv);
+          break;
+        }
+      }
+    })
+    tuple.kv = KVDatas;
+    this.rows.push(tuple);
+  }
+
+  get_prev_startAt() {
+    if (this.prev_strt_at.length > (this.pagination_clicked_count + 1))
+      this.prev_strt_at.splice(this.prev_strt_at.length - 2, this.prev_strt_at.length - 1);
+    return this.prev_strt_at[this.pagination_clicked_count - 1];
+  }
+
+  pop_prev_startAt(prev_first_doc: any) {
+    this.prev_strt_at.forEach((element: any) => {
+      if (prev_first_doc.data().id == element.data().id) {
+        element = null;
+      }
+    });
+  }
+
+  readableDate(time: any) {
+    var d = new Date(time);
+    return d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+  }
+
+
+
+}
+

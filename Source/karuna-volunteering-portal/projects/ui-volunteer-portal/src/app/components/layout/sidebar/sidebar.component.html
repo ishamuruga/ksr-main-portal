@@ -17,7 +17,11 @@
                 </li> -->
 
                 <li class="nav-item" *ngFor="let sm of sMenus">
-                    <a class="nav-link" routerLink="{{sm.loc}}" >
+                    <!-- <a class="nav-link" routerLink="{{sm.loc}}" >
+                        <span data-feather="home">
+                        </span> {{sm.name}} <span class="sr-only">(current)</span>
+                    </a> -->
+                    <a class="custom nav-link" (click)="doNavigate(sm.loc)" >
                         <span data-feather="home">
                         </span> {{sm.name}} <span class="sr-only">(current)</span>
                     </a>

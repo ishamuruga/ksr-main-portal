@@ -15,6 +15,10 @@
       "common-services": [
         "dist/common-services/common-services",
         "dist/common-services"
+      ],
+      "common-ui-components": [
+        "dist/common-ui-components/common-ui-components",
+        "dist/common-ui-components"
       ]
     },
     "outDir": "./dist/out-tsc",

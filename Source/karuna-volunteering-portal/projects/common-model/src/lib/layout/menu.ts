@@ -17,8 +17,8 @@ export const menus: MainMenu[] = [
         id: 1,
         name: "Activities",
         sMenu: [
-            { id: 1, name: "FundRaising", loc: "/fundraising", isActive: true },
-            { id: 2, name: "CottonBall", loc: "/cottonball", isActive: true },
+            { id: 1, name: "FundRaising", loc: "/fund-raising", isActive: true },
+            { id: 2, name: "CottonBall", loc: "/cotton-ball", isActive: true },
             { id: 3, name: "Art&Craft", loc: "/art-craft", isActive: true },
         ],
         isActive: true

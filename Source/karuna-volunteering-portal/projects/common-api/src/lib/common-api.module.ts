@@ -11,7 +11,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
-    CommonApiComponent
+    CommonApiComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(FIREBASE_CONFIG),

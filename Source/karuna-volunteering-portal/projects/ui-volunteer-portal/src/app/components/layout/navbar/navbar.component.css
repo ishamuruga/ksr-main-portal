@@ -13,7 +13,7 @@
 .dropdown-menu .dropdown-item{white-space:normal;}
 
 .custom:hover {
-  background-color: yellow;
+  background-color: lightblue; 
   cursor:pointer;
 }
 

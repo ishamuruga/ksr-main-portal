@@ -17,9 +17,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalExceptionService } from './utils/global-exception.service';
 import { ErrorDialogueComponent } from './components/common/error-dialogue/error-dialogue.component';
 import { CommonApiModule } from 'projects/common-api/src/public-api';
-import { LandingComponent } from './secured/landing/landing.component';
+import { LandingComponent } from './components/secured/landing/landing.component';
 import { NewVolunteerRegistrationComponent } from './components/open/new-volunteer-registration/new-volunteer-registration.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CottonBallComponent } from './components/secured/cotton-ball/cotton-ball.component';
+import { NewCottonBallRequestComponent } from './components/secured/new-cotton-ball-request/new-cotton-ball-request.component';
+import { PendingCottonBallComponent } from './components/secured/pending-cotton-ball/pending-cotton-ball.component';
+import { CommonUiComponentsModule } from 'projects/common-ui-components/src/public-api';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     LandingComponent,
     ErrorDialogueComponent,
-    NewVolunteerRegistrationComponent
+    NewVolunteerRegistrationComponent,
+    CottonBallComponent,
+    NewCottonBallRequestComponent,
+    PendingCottonBallComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatSelectModule,
     CommonApiModule,
     ToastrModule.forRoot(),
+    CommonUiComponentsModule
   ],
   providers: [
      { provide: ErrorHandler, useClass: GlobalExceptionService }
