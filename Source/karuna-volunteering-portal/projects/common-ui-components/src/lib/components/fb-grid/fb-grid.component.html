@@ -4,6 +4,9 @@
         <!-- <p class="card-text">
             Some quick example text to build on the card title and make up the bulk of the card's
             content.</p>  -->
+        <div *ngIf="isEmpty" class="alert alert-warning" role="alert">
+            No Records Found
+        </div>
         <div class="card-text">
             <table style="width:100%" class="table table-hover table-striped">
                 <thead class="thead-dark">
@@ -24,10 +27,10 @@
         </div>
         <!-- <p style="text-align: right;" class="mb-2 text-muted">Some example text. Some example text.</p> -->
         <div class="card-text">
-            <button (click)="next()" class="btn btn btn-success float-right btn-sm mr-3 float-right"
-                type="button" [disabled]="nextDisabled">next</button>
-            <button (click)="prev()" class="btn btn btn-success float-right btn-sm mr-3 float-right"
-                type="button" [disabled]="prevDisabled">prev</button>
+            <button (click)="next()" class="btn btn btn-success float-right btn-sm mr-3 float-right" type="button"
+                [disabled]="nextDisabled">next</button>
+            <button (click)="prev()" class="btn btn btn-success float-right btn-sm mr-3 float-right" type="button"
+                [disabled]="prevDisabled">prev</button>
             <button (click)="back()" class="btn btn-secondary float-right btn-sm mr-3 float-right"
                 type="button">back</button>
         </div>

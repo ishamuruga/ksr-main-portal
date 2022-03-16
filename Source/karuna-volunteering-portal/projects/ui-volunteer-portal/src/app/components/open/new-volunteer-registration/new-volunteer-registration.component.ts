@@ -169,6 +169,9 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     // }); 
     this.volService.uploadFile(event);
   }
-   
+ 
+  goBack(){
+    this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:"/"});    
+  }
 
 }

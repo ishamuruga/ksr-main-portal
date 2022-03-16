@@ -29,6 +29,8 @@ export class FbGridComponent implements OnInit {
 
   @Input()
   filter:any[]=[];
+
+  isEmpty:boolean = false;
   
   pSize = 5;
   firstInResponse: any;
@@ -48,7 +50,10 @@ export class FbGridComponent implements OnInit {
     console.log(this.datasource);
     console.log(this.colData);
     console.log(this.id);
+    this.isEmpty = false;
+    console.log(this.isEmpty);
     this.loadItems();
+    console.log(this.isEmpty);
   }
 
   loadItems() {
@@ -61,6 +66,7 @@ export class FbGridComponent implements OnInit {
         console.log("No Data Available");
         this.nextDisabled = true;
         this.prevDisabled = true;
+        this.isEmpty = true;
         return false;
       }
       this.firstInResponse = response[0].payload.doc;

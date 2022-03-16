@@ -25,6 +25,7 @@ import { NewCottonBallRequestComponent } from './components/secured/new-cotton-b
 import { PendingCottonBallComponent } from './components/secured/pending-cotton-ball/pending-cotton-ball.component';
 import { CommonUiComponentsModule } from 'projects/common-ui-components/src/public-api';
 import { CompletedCottonBallComponent } from './components/secured/completed-cotton-ball/completed-cotton-ball.component';
+import { PageInConstructionComponent } from './components/secured/page-in-construction/page-in-construction.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { CompletedCottonBallComponent } from './components/secured/completed-cot
     NewCottonBallRequestComponent,
     PendingCottonBallComponent,
     CompletedCottonBallComponent,
+    PageInConstructionComponent,
   ],
   imports: [
     BrowserModule,

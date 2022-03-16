@@ -7,6 +7,7 @@ import { CottonBallComponent } from './components/secured/cotton-ball/cotton-bal
 import { NewCottonBallRequestComponent } from './components/secured/new-cotton-ball-request/new-cotton-ball-request.component';
 import { PendingCottonBallComponent } from './components/secured/pending-cotton-ball/pending-cotton-ball.component';
 import { CompletedCottonBallComponent } from './components/secured/completed-cotton-ball/completed-cotton-ball.component';
+import { PageInConstructionComponent } from './components/secured/page-in-construction/page-in-construction.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'new-cotton-ball',component:NewCottonBallRequestComponent},
   {path:'pending-cotton-ball',component:PendingCottonBallComponent},
   {path:'completed-cotton-ball',component:CompletedCottonBallComponent},
+  {path:'page-in-progress',component:PageInConstructionComponent},
   {path:'',redirectTo:'/login',pathMatch:'full'}
 ];
 
