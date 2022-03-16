@@ -12,13 +12,15 @@ import { MygiComponent } from './mygi/mygi.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { VirgridComponent } from './ui/virgrid/virgrid.component';
 import { Virgrid2Component } from './virgrid2/virgrid2.component';
+import { FbWhereComponent } from './fb-where/fb-where.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MygiComponent,
     VirgridComponent,
-    Virgrid2Component
+    Virgrid2Component,
+    FbWhereComponent
   ],
   imports: [
     BrowserModule,
