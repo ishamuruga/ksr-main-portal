@@ -10,4 +10,5 @@ export class CottonBall extends BaseModel {
     cbColor: string="";
     plannedCompleteDate: Date = new Date();
     plannedShippedDate: Date = new Date();
+    status:string="";
 }

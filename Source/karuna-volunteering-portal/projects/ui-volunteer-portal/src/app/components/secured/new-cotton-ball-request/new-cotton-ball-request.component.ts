@@ -78,6 +78,7 @@ export class NewCottonBallRequestComponent implements OnInit {
       cb.plannedShippedDate = this.form.value.plannedShippedDate;
       cb.shippingproviders = this.form.value.shippingproviders;
       cb.shippedDate = this.form.value.shippedDate;
+      cb.status="new";
       cb.ts = new Date();
 
       let res = await this.cbService.saveCottonBall(cb);

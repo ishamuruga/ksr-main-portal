@@ -26,6 +26,9 @@ export class FbGridComponent implements OnInit {
 
   @Input()
   id:string="";
+
+  @Input()
+  filter:any[]=[];
   
   pSize = 5;
   firstInResponse: any;
@@ -52,7 +55,7 @@ export class FbGridComponent implements OnInit {
     this.nextDisabled = false;
     this.prevDisabled = true;
     console.log(this.datasource);
-    let itemsCollection = this.fbUtilService.loadItems(this.datasource,this.pSize,this.id).subscribe((response: any) => {
+    let itemsCollection = this.fbUtilService.loadItems2(this.datasource,this.pSize,this.id,this.filter).subscribe((response: any) => {
 
       if (!response.length) {
         console.log("No Data Available");
@@ -83,7 +86,7 @@ export class FbGridComponent implements OnInit {
 
   next() {
     this.prevDisabled = false;
-    this.fbUtilService.getNext(this.datasource,this.pSize,this.lastInResponse,this.id).subscribe((response: any) => {
+    this.fbUtilService.getNext(this.datasource,this.pSize,this.lastInResponse,this.id,this.filter).subscribe((response: any) => {
         if (!response.docs.length) {
           console.log("No More Next....")
           this.nextDisabled = true;
@@ -118,7 +121,7 @@ export class FbGridComponent implements OnInit {
       return;
     }
 
-    this.fbUtilService.getPrev(this.datasource,this.pSize,this.firstInResponse,this.get_prev_startAt(),this.id).subscribe((response: any) => {
+    this.fbUtilService.getPrev(this.datasource,this.pSize,this.firstInResponse,this.get_prev_startAt(),this.id,this.filter).subscribe((response: any) => {
         console.log("......"+response.docs.length);
         if (!response.docs.length) {
            console.log("No More Prev....")

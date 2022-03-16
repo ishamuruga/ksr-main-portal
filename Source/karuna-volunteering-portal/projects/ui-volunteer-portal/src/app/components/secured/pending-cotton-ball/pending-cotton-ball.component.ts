@@ -14,6 +14,11 @@ export class PendingCottonBallComponent implements OnInit {
 
   id:string=this.loginService.fetchEmailFromStorage();
 
+  filter=[
+    {id:1,key:"status",value:"new"},
+    {id:2,key:"id",value:this.id}
+  ]
+
   colData = [
     {id:0,position:1,dtype:"string",sort:false,name:"id",display:"#"},
     {id:1,position:2,dtype:"number",sort:false,name:"cbCount",display:"Count #"},
