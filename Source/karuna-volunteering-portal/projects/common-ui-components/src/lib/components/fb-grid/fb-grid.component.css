@@ -1,3 +1,6 @@
+table {
+  border-collapse: collapse;
+}
 .smallcoltext {
     font-size: 10px;
     font-weight: normal;
@@ -5,7 +8,16 @@
   }
 
   .smallheadertext {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     text-align: center;
+  }
+  
+  tr {
+    line-height: 10px;
+  }
+
+  .piped button:after {
+    content: "|";
+    margin: 0 10px;
   }
