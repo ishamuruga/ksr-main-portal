@@ -1,9 +1,11 @@
 import { registerLocaleData } from '@angular/common';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 //import { of, Subject, switchMap } from 'rxjs';
 //import { collection, Firestore, query, QueryConstraint, where } from "firebase/firestore";
 import {Query } from '@angular/fire/firestore';
+import { Country } from 'projects/common-model/src/public-api';
 
 
 
@@ -87,6 +89,39 @@ export class FbCommonUtilService {
     //   .endBefore(firstInResponse)
     //   .limit(pSize))
     //   .get()
+  }
+
+  getReferenceData(dataSource:string){
+    // this.store.collection(dataSource).snapshotChanges().subscribe(x=>{
+    //   return x.map(y=>{
+    //     console.log(y.payload.doc.data());
+    //     console.log(y.payload.doc.id);
+    //   })
+    // })
+     //let datas:any[] = [];
+
+     //this.store.collection(dataSource).snapshotChanges().subscribe((response) => {
+     //  response.map(item => {
+        
+        //console.log(item.payload.doc.id);
+        //console.log(item.payload.doc.data() as Country);
+        // datas.push(item.payload.doc.data())
+
+
+        // return response;
+         //return Object.assign({id : item.payload.doc.id}, item.payload.doc.data())
+    //    });
+    //  })
+
+     //let data= await  this.store.collection(dataSource).snapshotChanges();
+
+     return this.store.collection(dataSource).snapshotChanges();
+
+     //console.log(data);
+
+     //return data;
+     
+     //return Promise.resolve(datas);
   }
 
 

@@ -212,17 +212,71 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
-                                <label for="state">State:</label>
-                                <input type="text" formControlName="state" placeholder="Enter State"
+                                <label for="pincode">PinCode:</label>
+                                <input type="text" formControlName="pincode" placeholder="Enter Pincode"
                                     class="form-control" [ngClass]="{
-                    'is-invalid': submitted && f['state'].errors
+                    'is-invalid': submitted && f['pincode'].errors
                   }" />
-                                <div *ngIf="submitted && f['state'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['state'].errors['required']">
-                                        State is required
+                                <div *ngIf="submitted && f['pincode'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['pincode'].errors['required']">
+                                        PinCode is required
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6 col-xs-12">
+                                <label for="country">Country:</label>
+                                <div class="col-md-6">
+                                    <mat-form-field [ngClass]="{
+                                        'is-invalid': submitted && f['country'].errors
+                                      }">
+                                        <mat-label>Country of Residence</mat-label>
+                                        <mat-select formControlName="country" (valueChange)="doCountryChange($event)">
+                                            <mat-option *ngFor="let c of countries" [value]="c.code">{{ c.name }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['country'].errors['required']">
+                                            Country is required
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- <label for="country">Country:</label>
+                                <input type="text" formControlName="country" placeholder="Enter Country"
+                                    class="form-control" [ngClass]="{
+                    'is-invalid': submitted && f['country'].errors
+                  }" />
+                                <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['country'].errors['required']">
+                                        Country is required
+                                    </div>
+                                </div> -->
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <label for="state">State:</label>
+                                <div class="col-md-6">
+                                    <mat-form-field [ngClass]="{
+                                        'is-invalid': submitted && f['state'].errors
+                                      }">
+                                        <mat-label>State of Residence</mat-label>
+                                        <mat-select formControlName="state" (valueChange)="doStateChange($event)">
+                                            <mat-option *ngFor="let c of states" [value]="c.code">{{ c.name }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <div *ngIf="submitted && f['state'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['state'].errors['required']">
+                                            State is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-md-6 col-xs-12">
                                 <label for="city">City:</label>
                                 <input type="text" formControlName="city" placeholder="Enter City" class="form-control"
@@ -235,34 +289,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6 col-xs-12">
-                                <label for="country">Country:</label>
-                                <input type="text" formControlName="country" placeholder="Enter Country"
-                                    class="form-control" [ngClass]="{
-                    'is-invalid': submitted && f['country'].errors
-                  }" />
-                                <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['country'].errors['required']">
-                                        Country is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                                <label for="pincode">PinCode:</label>
-                                <input type="text" formControlName="pincode" placeholder="Enter Pincode"
-                                    class="form-control" [ngClass]="{
-                    'is-invalid': submitted && f['pincode'].errors
-                  }" />
-                                <div *ngIf="submitted && f['pincode'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['pincode'].errors['required']">
-                                        PinCode is required
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="divider d-flex align-items-center my-2">

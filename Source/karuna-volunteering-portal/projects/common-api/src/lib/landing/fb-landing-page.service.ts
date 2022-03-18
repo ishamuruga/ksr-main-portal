@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FbLandingPageService {
 
-  constructor(private store:AngularFirestore) { ... }
+  constructor(private store:AngularFirestore) {  }
 
   public getCottonBallCollections(){
     this.store.collection("cotton-ball")
