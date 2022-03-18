@@ -20,14 +20,14 @@ export class NewVolRegistrationService {
 
   saveVolunteer(volunteer: Volunteer) {
     volunteer.id = this.db.createId();
-    console.log(volunteer);
+    //console.log(volunteer);
     return this.db
       .collection('volunteers')
       .add(JSON.parse(JSON.stringify(volunteer)));
   }
 
   uploadFile(data:any){
-    console.log("...NewVolRegistrationService");
+    //console.log("...NewVolRegistrationService");
       
     return this.storage.uploadFile(data);
   }

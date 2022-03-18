@@ -28,11 +28,11 @@ export class FbCommonUtilService {
   // }
 
   loadItems2(dataSource: string, pSize: number, owner: string, filter: any) {
-    console.log(filter);
+    //console.log(filter);
     return this.store.collection(dataSource,(ref:any) => {
       
       filter.map((x:any) => {
-        console.log("Filters")
+        //console.log("Filters")
         ref = ref.where(x.key,'==',x.value)
         return x;
       })
@@ -46,7 +46,7 @@ export class FbCommonUtilService {
     return this.store.collection(dataSource,(ref:any) => {
       
       filter.map((x:any) => {
-        console.log("Filters")
+        //console.log("Filters")
         ref = ref.where(x.key,'==',x.value)
         return x;
       })
@@ -71,7 +71,7 @@ export class FbCommonUtilService {
     return this.store.collection(dataSource,(ref:any) => {
       
       filter.map((x:any) => {
-        console.log("Filters")
+        //console.log("Filters")
         ref = ref.where(x.key,'==',x.value)
         return x;
       })
@@ -92,37 +92,31 @@ export class FbCommonUtilService {
   }
 
   getReferenceData(dataSource:string){
-    // this.store.collection(dataSource).snapshotChanges().subscribe(x=>{
-    //   return x.map(y=>{
-    //     console.log(y.payload.doc.data());
-    //     console.log(y.payload.doc.id);
-    //   })
-    // })
-     //let datas:any[] = [];
-
-     //this.store.collection(dataSource).snapshotChanges().subscribe((response) => {
-     //  response.map(item => {
-        
-        //console.log(item.payload.doc.id);
-        //console.log(item.payload.doc.data() as Country);
-        // datas.push(item.payload.doc.data())
-
-
-        // return response;
-         //return Object.assign({id : item.payload.doc.id}, item.payload.doc.data())
-    //    });
-    //  })
-
-     //let data= await  this.store.collection(dataSource).snapshotChanges();
-
      return this.store.collection(dataSource).snapshotChanges();
-
-     //console.log(data);
-
-     //return data;
-     
-     //return Promise.resolve(datas);
   }
 
+  getCottonBallCount(id:string,filter:any[]) {
+    console.log(id);
+    console.log(filter);
+    return this.store.collection("cotton-ball",(ref:any)=>{
+      filter.map((y:any) => {
+        console.log(y.key + "," + y.value);
+        ref = ref.where(y.key,'==',y.value);
+        return y;
+      });
+
+      return ref;
+    }).snapshotChanges();
+      
+    //   filter.map((x:any) => {
+    //     console.log("Filters")
+    //     ref = ref.where(x.key,'==',x.value)
+    //this.store.collection("cotton-ball",ref =>{
+
+    //});
+    //     return x;
+    //   })
+    // }).snapshotChanges();  
+  }
 
 }

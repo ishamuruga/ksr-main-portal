@@ -29,20 +29,20 @@ export class FBLoginService implements LoginManager {
   userData!: Observable<firebase.User | null>;
 
   registration(user: VUser): Promise<any> {
-    console.log(user.id + "," + user.password);
+    //console.log(user.id + "," + user.password);
     return this.angularFireAuth.createUserWithEmailAndPassword(user.id, user.password);
   }
 
 
 
   async signIn(user: VUser): Promise<any> {
-    console.log(user.id + "," + user.password);
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    //console.log(user.id + "," + user.password);
+    //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     let result = await this.angularFireAuth.signInWithEmailAndPassword(user.id, user.password);
-    console.log(result);
+    //console.log(result);
     let data: any = result.user?.toJSON();
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-    console.log(data)
+    //console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    //console.log(data)
     let vuser: VUser = new VUser();
     vuser.id = result.user?.email + "";
     vuser.loggedInTS = new Date();
@@ -50,9 +50,9 @@ export class FBLoginService implements LoginManager {
     vuser.refreshToken = data.stsTokenManager.refreshToken; 
     
     this.fbUserService.fetchUserNameById(vuser.id).subscribe((x: any) => {
-      console.log("+++++++++++++++++++++");
+      //console.log("+++++++++++++++++++++");
       sessionStorage.setItem("vol",JSON.stringify(x[0]));
-      console.log(x[0].firstname);
+      //console.log(x[0].firstname);
       vuser.photoURL = "https://pro.propeller.in/assets/images/avatar-icon-40x40.png";
       if (x[0].profile){
         vuser.photoURL = x[0].profile;
@@ -66,7 +66,7 @@ export class FBLoginService implements LoginManager {
           vuser.displayName = disName;
         }
       }
-      console.log(vuser);
+      ///console.log(vuser);
       
       this.evtService.raiseEvent(EVENTTYPE.EVENT_LOGIN, vuser);
       
@@ -84,18 +84,18 @@ export class FBLoginService implements LoginManager {
 
 
   async googleSignin(): Promise<any> {
-    console.log("=========================1");
+    //console.log("=========================1");
     const provider = new firebase.auth.GoogleAuthProvider();
-    console.log("=========================2");
+    //console.log("=========================2");
     const credential = await this.angularFireAuth.signInWithPopup(provider);
-    console.log("=========================3");
-    console.log(credential);
+    //console.log("=========================3");
+    //console.log(credential);
 
     if (credential == null) {
       Promise.reject();
     }
 
-    console.log("=========================4");
+    //console.log("=========================4");
 
     let user = credential.user;
     let data: any = {
@@ -104,9 +104,9 @@ export class FBLoginService implements LoginManager {
       displayName: user!.displayName,
       photoURL: user!.photoURL
     };
-    console.log("=========================5");
-    console.log(data);
-    console.log("=========================6");
+    //console.log("=========================5");
+    //console.log(data);
+    //console.log("=========================6");
     return Promise.resolve(data);
 
   }

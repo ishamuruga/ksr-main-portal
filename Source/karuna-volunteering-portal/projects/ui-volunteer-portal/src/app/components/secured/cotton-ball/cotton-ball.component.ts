@@ -29,7 +29,7 @@ export class CottonBallComponent implements OnInit {
   async onSubmit() { }
 
   doNavigate(url: string) {
-    console.log("url..." + url);
+    //console.log("url..." + url);
     this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK, { loc: url });
   }
 

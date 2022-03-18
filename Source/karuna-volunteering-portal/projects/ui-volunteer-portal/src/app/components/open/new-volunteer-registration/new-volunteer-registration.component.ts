@@ -61,8 +61,8 @@ export class NewVolunteerRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.evntService.readEvent().subscribe((x:any)=>{
       if (x.event==EVENTTYPE.USER_PROFILE_URL){
-        console.log("&&&&&&&&&&&&&&&&&&&&&&& Event Captures $$$$$$$$$$$$$");
-        console.log(x.data.loc);
+        //console.log("&&&&&&&&&&&&&&&&&&&&&&& Event Captures $$$$$$$$$$$$$");
+        //console.log(x.data.loc);
         this.vol.profile = x.data.loc;
       };
     })
@@ -107,11 +107,11 @@ export class NewVolunteerRegistrationComponent implements OnInit {
       }
     );
     this.utilService.getReferenceData("country").subscribe((response:any)=>{
-      console.log(response);
+      //console.log(response);
       for (let item of response) {
-        console.log(item.payload.doc.data());
+        //console.log(item.payload.doc.data());
         this.countries.push(item.payload.doc.data() as Country);
-        console.log(this.countries);
+        //console.log(this.countries);
       }
     })
   }
@@ -121,13 +121,13 @@ export class NewVolunteerRegistrationComponent implements OnInit {
 
 
   async onSubmit() {
-    console.log(",,,,,profile..." +  this.form.value.profile);
-    console.log("Form Submited");
+    //console.log(",,,,,profile..." +  this.form.value.profile);
+    //console.log("Form Submited");
     this.submitted = true;
     if (this.form.invalid) {
       return;
     } else {
-      console.log("Form is being processed");
+      //console.log("Form is being processed");
       
       this.vol.firstname = this.form.value.firstname;
       this.vol.middlename = this.form.value.middlename;
@@ -149,12 +149,12 @@ export class NewVolunteerRegistrationComponent implements OnInit {
       this.vol.personVisit = this.form.value.personVisit;
       this.vol.status = false;
       //this.vol.profile = this.form.value.profile;
-      console.log("=================BEFORE")
-      console.log("=================aFTRE1.0")
+      //console.log("=================BEFORE")
+      //console.log("=================aFTRE1.0")
       this.volService.saveVolunteer(this.vol).then(() => {
         this.volService.signUp(this.vol.email, this.vol.password).then(
           () => {
-            console.log("=================aFTRE2.0")
+            //console.log("=================aFTRE2.0")
             this.toastr.success('Volunteer Registration successfull');
             
             setTimeout(()=>{
@@ -173,7 +173,7 @@ export class NewVolunteerRegistrationComponent implements OnInit {
 
 
   async uploadFile(event: any) {
-    console.log("..NewVolunteerRegistrationComponent");
+    //console.log("..NewVolunteerRegistrationComponent");
     // (await this.volService.uploadFile(event)).subscribe(url=>{
     //   console.log("$$$$$$$$$$$$$$$");
     //   console.log(url);
@@ -183,7 +183,7 @@ export class NewVolunteerRegistrationComponent implements OnInit {
   }
  
   doCountryChange(data:string){
-    console.log(data);
+    //console.log(data);
     this.countries.map((c:Country)=>{
       if (c.code === data) {
         this.states = c.state;
@@ -193,7 +193,7 @@ export class NewVolunteerRegistrationComponent implements OnInit {
   }
 
   doStateChange(data:any) {
-    console.log(data);
+    //console.log(data);
   }
   
   goBack(){

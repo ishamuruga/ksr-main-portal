@@ -28,21 +28,21 @@ export class NavbarComponent implements OnInit {
   vUser!:VUser;
 
   ngOnInit(): void {
-    console.log("==================#######################");
+    //console.log("==================#######################");
     this.evntService.raiseEvent(EVENTTYPE.MAIN_MENU_CLICK,null);
     this.evntService.readEvent().subscribe((x:any)=>{
       if (x){
         if (x.event==EVENTTYPE.EVENT_LOGIN){
           this.vUser = x.data;
-          console.log(this.vUser);
+          //console.log(this.vUser);
           this.userName = this.vUser.displayName + "";
           this.pUrl = this.vUser.photoURL + "";
-          console.log("====" + this.userName);
+          //console.log("====" + this.userName);
         } else if (x.event==EVENTTYPE.EVENT_LOGGOUT) {
           this.layoutService.isAuthenticated = false;
           this.router.navigate(['./']);
         } else if (x.event == EVENTTYPE.USER_PROFILE_URL) {
-          console.log(x.data.loc);
+          //console.log(x.data.loc);
         }
       }
     });

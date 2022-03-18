@@ -50,7 +50,7 @@ export class NewCottonBallRequestComponent implements OnInit {
       awb: ['']
 
     });
-    console.log(this.loginService.fetchEmailFromStorage() + "," + this.loginService.fetchUserNameFromStorage());
+    //(this.loginService.fetchEmailFromStorage() + "," + this.loginService.fetchUserNameFromStorage());
     this.id = this.loginService.fetchEmailFromStorage();
     this.displayName = this.loginService.fetchUserNameFromStorage();
   }
@@ -62,7 +62,7 @@ export class NewCottonBallRequestComponent implements OnInit {
   async onSubmit() {
     
     this.submitted = true;
-    console.log("==================Submit" + this.form.invalid)
+    //console.log("==================Submit" + this.form.invalid)
 
     if (this.form.invalid) {
       return;
