@@ -42,14 +42,8 @@ export class LoginComponent implements OnInit {
     user.id = userid;
     user.password = password;
     this.fbLoginService.signIn(user).then((vuser:VUser)=>{
-      //console.log("==========================FB Regusr")
-      //console.log(vuser);
-      //console.log(JSON.stringify(vuser));
-      //console.log(vuser.id);
-      //console.log(vuser.displayName);
       sessionStorage.setItem("auth",JSON.stringify(vuser));
       this.layoutService.isAuthenticated = true;
-      //console.log("EMPTY SUB MENU RAISER");
       this.router.navigate(['dashboard']);
     }).catch(err=>{
       this.router.navigate(['/']);

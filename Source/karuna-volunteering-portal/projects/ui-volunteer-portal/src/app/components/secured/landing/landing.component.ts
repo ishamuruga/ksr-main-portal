@@ -14,9 +14,15 @@ export class LandingComponent implements OnInit {
   id:string=this.loginService.fetchEmailFromStorage();
 
   cottonBallNew:number=0;
+  cottonBallCompleted:number=0;
 
   filterOpen:any[]=[
     {id:1,key:"status",value:"new"},
+    {id:2,key:"id",value:this.id}
+  ];
+
+  filterClosed:any[]=[
+    {id:1,key:"status",value:"completed"},
     {id:2,key:"id",value:this.id}
   ];
 
@@ -25,8 +31,13 @@ export class LandingComponent implements OnInit {
     private loginService:LoginService,private eventService:EventService) { }
 
   ngOnInit(): void {
+    //this.id=this.loginService.fetchEmailFromStorage();
     this.fbUtilService.getCottonBallCount(this.id,this.filterOpen).subscribe(x=>{
       this.cottonBallNew = x.length?x.length:0;
+      console.log(x.length);
+    })
+    this.fbUtilService.getCottonBallCount(this.id,this.filterClosed).subscribe(x=>{
+      this.cottonBallCompleted = x.length?x.length:0;
       console.log(x.length);
     })
   }
