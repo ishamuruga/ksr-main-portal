@@ -22,13 +22,17 @@ export class LandingComponent implements OnInit {
 
   
   constructor(private fbUtilService:FbCommonUtilService,
-    private loginService:LoginService) { }
+    private loginService:LoginService,private eventService:EventService) { }
 
   ngOnInit(): void {
     this.fbUtilService.getCottonBallCount(this.id,this.filterOpen).subscribe(x=>{
       this.cottonBallNew = x.length?x.length:0;
       console.log(x.length);
     })
+  }
+
+  public goToHome() {
+    this.eventService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:'/'});
   }
 
 }
