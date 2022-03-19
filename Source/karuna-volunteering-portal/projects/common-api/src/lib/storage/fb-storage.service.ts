@@ -9,6 +9,8 @@ import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utilit
 //import { readAndCompressImage } from 'browser-image-resizer';
 import { finalize } from 'rxjs';
 
+const { v4: uuidv4 } = require('uuid');
+
 const biresizer = require('browser-image-resizer');
 
 
@@ -28,8 +30,13 @@ export class FbStorageService {
     //console.log("....................1.a");
     let resizedImage = await biresizer.readAndCompressImage(file, imageConfig);
     //console.log("....................2");
-    const filepath = file.name;
+    let filepath = file.name;
     //console.log("....................3");
+    console.log(uuidv4());
+    console.log(filepath);
+    let foldername = uuidv4()
+    filepath = foldername + "/" + filepath;
+    
     const fileRef = this.storage.ref(filepath);
     ////console.log("....................4");
     //fileRef.getDownloadURL().subscribe(x=>{
