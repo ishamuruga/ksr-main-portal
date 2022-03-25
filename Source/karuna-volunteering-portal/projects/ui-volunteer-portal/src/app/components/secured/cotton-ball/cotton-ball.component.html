@@ -30,12 +30,16 @@
                     <div class="card-header text-black"><i class="fa fa-solid fa-file"></i> New Request
                     </div>
                     <div class="card-body">
-                        <div class="alert alert-success small-text">
-                            Address to ship the consignment :-
-                            <address><strong>Mrs Karunashraya</strong>,<br/>40, Varthur Rd, <br/>Vaikuntam Layout, Lakshminarayana Pura, <br/>Kundalahalli, Marathahalli, <br/>Bengaluru, <br/>Karnataka 560037</address>
+                        <!-- <div class="alert alert-success small-text"> -->
+                        <div class="alert alert-info">
+                            <strong>Info!</strong> Address to ship the consignment :-
+                            <address><strong>Mrs Karunashraya</strong>,<br />40, Varthur Rd, <br />Vaikuntam Layout,
+                                Lakshminarayana Pura, <br />Kundalahalli, Marathahalli, <br />Bengaluru, <br />Karnataka
+                                560037</address>
                         </div>
                         <div class="right">
-                            <button type="button" (click)="doNavigate('new-cotton-ball')" class="btn btn-outline-warning btn-sm float-right">Add</button>
+                            <button type="button" (click)="doNavigate('new-cotton-ball')"
+                                class="btn btn-outline-warning btn-sm float-right">Add</button>
                         </div>
                     </div>
                 </div>
@@ -43,11 +47,12 @@
                     <div class="card-header text-black"><i class="fa fa-solid fa-spinner"></i> On Going Activity.</div>
                     <div class="card-body">
                         <div class="alert alert-info">
-                            <strong>Info!</strong> Indicates a neutral informative change or action.
+                            <strong>Info!</strong> Pending & In Progress Cotton Ball making
                         </div>
-                        
-                        <button type="button" (click)="doNavigate('pending-cotton-ball')" class="btn btn-outline-primary btn-sm float-right">View OnGoing</button>
-                    
+
+                        <button type="button" (click)="doNavigate('pending-cotton-ball')"
+                            class="btn btn-outline-primary btn-sm float-right">View OnGoing</button>
+
                     </div>
                 </div>
                 <div class="card p-2">
@@ -56,12 +61,13 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-warning">
-                            <strong>Info!</strong> Indicates a neutral informative change or action.
+                            <strong>Info!</strong> Completed & Delivered Cotton Ball making request
                         </div>
-                        <button type="button" (click)="doNavigate('completed-cotton-ball')" class="btn btn-outline-success btn-sm float-right">View</button>
+                        <button type="button" (click)="doNavigate('completed-cotton-ball')"
+                            class="btn btn-outline-success btn-sm float-right">View</button>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

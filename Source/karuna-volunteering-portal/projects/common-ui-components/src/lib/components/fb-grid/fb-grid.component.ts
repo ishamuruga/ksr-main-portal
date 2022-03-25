@@ -47,23 +47,23 @@ export class FbGridComponent implements OnInit {
               private datePipe:DatePipe,private evtService:EventService ) { }
 
   ngOnInit(): void { 
-    console.log(this.datasource);
-    console.log(this.colData);
-    console.log(this.id);
+    //console.log(this.datasource);
+    //console.log(this.colData);
+    //console.log(this.id);
     this.isEmpty = false;
-    console.log(this.isEmpty);
+    //console.log(this.isEmpty);
     this.loadItems();
-    console.log(this.isEmpty);
+    //console.log(this.isEmpty);
   }
 
   loadItems() {
     this.nextDisabled = false;
     this.prevDisabled = true;
-    console.log(this.datasource);
+    //console.log(this.datasource);
     let itemsCollection = this.fbUtilService.loadItems2(this.datasource,this.pSize,this.id,this.filter).subscribe((response: any) => {
 
       if (!response.length) {
-        console.log("No Data Available");
+        //console.log("No Data Available");
         this.nextDisabled = true;
         this.prevDisabled = true;
         this.isEmpty = true;
@@ -94,7 +94,7 @@ export class FbGridComponent implements OnInit {
     this.prevDisabled = false;
     this.fbUtilService.getNext(this.datasource,this.pSize,this.lastInResponse,this.id,this.filter).subscribe((response: any) => {
         if (!response.docs.length) {
-          console.log("No More Next....")
+          //console.log("No More Next....")
           this.nextDisabled = true;
           
           return;
@@ -113,7 +113,7 @@ export class FbGridComponent implements OnInit {
 
         this.push_prev_startAt(this.firstInResponse);
 
-        console.log(tempCounter + "," + this.pSize);
+        //console.log(tempCounter + "," + this.pSize);
         
         
         return;
@@ -128,9 +128,9 @@ export class FbGridComponent implements OnInit {
     }
 
     this.fbUtilService.getPrev(this.datasource,this.pSize,this.firstInResponse,this.get_prev_startAt(),this.id,this.filter).subscribe((response: any) => {
-        console.log("......"+response.docs.length);
+        //console.log("......"+response.docs.length);
         if (!response.docs.length) {
-           console.log("No More Prev....")
+           //console.log("No More Prev....")
            this.prevDisabled = true;
            this.nextDisabled = false;
            return;
@@ -151,10 +151,10 @@ export class FbGridComponent implements OnInit {
 
         return;
       }, err => {
-        console.log("=======Error");
-        console.log(err);
+        //console.log("=======Error");
+        //console.log(err);
       }, () => {
-        console.log("Finally.........");
+        //console.log("Finally.........");
       })
   }
 

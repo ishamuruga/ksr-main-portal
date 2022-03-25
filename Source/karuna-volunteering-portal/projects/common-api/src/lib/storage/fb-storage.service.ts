@@ -9,6 +9,8 @@ import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utilit
 //import { readAndCompressImage } from 'browser-image-resizer';
 import { finalize } from 'rxjs';
 
+const { v4: uuidv4 } = require('uuid');
+
 const biresizer = require('browser-image-resizer');
 
 
@@ -22,16 +24,21 @@ export class FbStorageService {
     private evntService:EventService) { }
 
   async uploadFile(data:any) {
-    console.log("....................1");
+    //console.log("....................1");
     const file = data.target.files[0];
-    console.log(file);
-    console.log("....................1.a");
+    //console.log(file);
+    //console.log("....................1.a");
     let resizedImage = await biresizer.readAndCompressImage(file, imageConfig);
-    console.log("....................2");
-    const filepath = file.name;
-    console.log("....................3");
+    //console.log("....................2");
+    let filepath = file.name;
+    //console.log("....................3");
+    console.log(uuidv4());
+    console.log(filepath);
+    let foldername = uuidv4()
+    filepath = foldername + "/" + filepath;
+    
     const fileRef = this.storage.ref(filepath);
-    console.log("....................4");
+    ////console.log("....................4");
     //fileRef.getDownloadURL().subscribe(x=>{
     //  console.log(x);
     //});
@@ -49,7 +56,7 @@ export class FbStorageService {
     //console.log(task);
     task.percentageChanges().subscribe((percentage) => {
       //this.uploadPercent = percentage;
-      console.log(percentage);
+      //console.log(percentage);
     });
     task
       .snapshotChanges()
@@ -57,9 +64,9 @@ export class FbStorageService {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             //this.vol.profile = url;
-            console.log(url);
-            console.log("()()()()()()()()()()()()()()()()()()()()()()()()()");
-            console.log(url);
+            //console.log(url);
+            //console.log("()()()()()()()()()()()()()()()()()()()()()()()()()");
+            ////console.log(url);
             this.evntService.raiseEvent(EVENTTYPE.USER_PROFILE_URL,{loc:url});  
             //return Promise.resolve(url);
           });

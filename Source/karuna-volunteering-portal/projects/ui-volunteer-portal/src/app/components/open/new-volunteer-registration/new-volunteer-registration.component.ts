@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Volunteer } from 'projects/common-model/src/public-api';
+import { Country, Volunteer } from 'projects/common-model/src/public-api';
 import { NewVolRegistrationService, Validation } from 'projects/common-services/src/public-api';
 import { ToastrService } from 'ngx-toastr';
 import { throws } from 'assert';
 import { EventService, EVENTTYPE } from 'projects/common-services/src/lib/utility/event.service';
+import { FbCommonUtilService } from 'projects/common-api/src/public-api';
 
 @Component({
   selector: 'app-new-volunteer-registration',
@@ -17,6 +18,8 @@ export class NewVolunteerRegistrationComponent implements OnInit {
 
   vol: Volunteer = new Volunteer();
   uploadPercent: number = 0;
+  countries:Country[]=[];
+  states:any[]=[];
   areaList: string[] = [
     'Cotton Ball',
     'Art and Craft',
@@ -52,49 +55,50 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     private storage: AngularFireStorage,
     private route: Router,
     private toastr: ToastrService,
-    private evntService:EventService
+    private evntService:EventService,
+    private utilService:FbCommonUtilService
   ) {}
   ngOnInit(): void {
     this.evntService.readEvent().subscribe((x:any)=>{
       if (x.event==EVENTTYPE.USER_PROFILE_URL){
-        console.log("&&&&&&&&&&&&&&&&&&&&&&& Event Captures $$$$$$$$$$$$$");
-        console.log(x.data.loc);
+        //console.log("&&&&&&&&&&&&&&&&&&&&&&& Event Captures $$$$$$$$$$$$$");
+        //console.log(x.data.loc);
         this.vol.profile = x.data.loc;
       };
     })
     this.form = this.formBuilder.group(
       {
-        firstname: ['fn', Validators.required],
-        middlename: ['mn'],
-        lastname: ['ln', Validators.required],
-        email: ['aaa@bbb.com', [Validators.required, Validators.email]],
+        firstname: ['', Validators.required],
+        middlename: [''],
+        lastname: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
         password: [
-          '1234567890',
+          '',
           [
             Validators.required,
             Validators.minLength(8),
             Validators.maxLength(15),
           ],
         ],
-        confirmpassword: ['1234567890', Validators.required],
-        dob: ['01/01/2000', Validators.required],
+        confirmpassword: ['', Validators.required],
+        dob: ['', Validators.required],
         profile: ['', Validators.required],
         mobile: [
-          '1234567890',
+          '',
           [
             Validators.required,
             Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
           ],
         ],
-        landline: ['1234546454'],
-        address1: ['addr1', Validators.required],
-        address2: ['addr2', Validators.required],
-        address3: ['addr3', Validators.required],
-        street: ['street', Validators.required],
-        state: ['state', Validators.required],
-        city: ['cty', Validators.required],
-        country: ['Australia', Validators.required],
-        pincode: ['123221', Validators.required],
+        landline: [''],
+        address1: ['', Validators.required],
+        address2: ['', Validators.required],
+        address3: ['', Validators.required],
+        street: ['', Validators.required],
+        state: ['', Validators.required],
+        city: ['', Validators.required],
+        country: ['', Validators.required],
+        pincode: ['', Validators.required],
         areas: [null, [Validators.required, Validators.minLength(2)]],
         personVisit: ['', Validators.required],
       },
@@ -102,6 +106,14 @@ export class NewVolunteerRegistrationComponent implements OnInit {
         validators: [Validation.match('password', 'confirmpassword')],
       }
     );
+    this.utilService.getReferenceData("country").subscribe((response:any)=>{
+      //console.log(response);
+      for (let item of response) {
+        //console.log(item.payload.doc.data());
+        this.countries.push(item.payload.doc.data() as Country);
+        //console.log(this.countries);
+      }
+    })
   }
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
@@ -109,13 +121,13 @@ export class NewVolunteerRegistrationComponent implements OnInit {
 
 
   async onSubmit() {
-    console.log(",,,,,profile..." +  this.form.value.profile);
-    console.log("Form Submited");
+    //console.log(",,,,,profile..." +  this.form.value.profile);
+    //console.log("Form Submited");
     this.submitted = true;
     if (this.form.invalid) {
       return;
     } else {
-      console.log("Form is being processed");
+      //console.log("Form is being processed");
       
       this.vol.firstname = this.form.value.firstname;
       this.vol.middlename = this.form.value.middlename;
@@ -137,12 +149,12 @@ export class NewVolunteerRegistrationComponent implements OnInit {
       this.vol.personVisit = this.form.value.personVisit;
       this.vol.status = false;
       //this.vol.profile = this.form.value.profile;
-      console.log("=================BEFORE")
-      console.log("=================aFTRE1.0")
+      //console.log("=================BEFORE")
+      //console.log("=================aFTRE1.0")
       this.volService.saveVolunteer(this.vol).then(() => {
         this.volService.signUp(this.vol.email, this.vol.password).then(
           () => {
-            console.log("=================aFTRE2.0")
+            //console.log("=================aFTRE2.0")
             this.toastr.success('Volunteer Registration successfull');
             
             setTimeout(()=>{
@@ -161,7 +173,7 @@ export class NewVolunteerRegistrationComponent implements OnInit {
 
 
   async uploadFile(event: any) {
-    console.log("..NewVolunteerRegistrationComponent");
+    //console.log("..NewVolunteerRegistrationComponent");
     // (await this.volService.uploadFile(event)).subscribe(url=>{
     //   console.log("$$$$$$$$$$$$$$$");
     //   console.log(url);
@@ -170,8 +182,23 @@ export class NewVolunteerRegistrationComponent implements OnInit {
     this.volService.uploadFile(event);
   }
  
+  doCountryChange(data:string){
+    //console.log(data);
+    this.countries.map((c:Country)=>{
+      if (c.code === data) {
+        this.states = c.state;
+        return;
+      }
+    })
+  }
+
+  doStateChange(data:any) {
+    //console.log(data);
+  }
+  
   goBack(){
     this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:"/"});    
   }
+
 
 }

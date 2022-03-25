@@ -15,18 +15,22 @@ export class LoginService {
 
   public fetchUserNameFromStorage(){
     let vol:any = sessionStorage.getItem("vol")?JSON.parse(sessionStorage.getItem("vol")+""):"";
-    console.log("^%");
-    console.log(vol.firstname + " " + vol.lastname);
+    //console.log("^%");
+    //console.log(vol.firstname + " " + vol.lastname);
     //return "";
     return `${vol.firstname} ${vol.lastname}`;
   }
 
   public fetchEmailFromStorage(){
-    let vol:any = sessionStorage.getItem("vol")?JSON.parse(sessionStorage.getItem("vol")+""):"";
-    console.log("^%");
-    console.log(vol);
+    console.log(sessionStorage.getItem("auth"));
+    let data = JSON.parse(sessionStorage.getItem("auth")+"");
+    console.log(data.id);
+    let vol:any = sessionStorage.getItem("auth")?JSON.parse(sessionStorage.getItem("auth")+""):"";
+    //console.log("^%");
+    //console.log(vol);
     //return "";
-    return `${vol.email}`;
+    console.log(vol.id)
+    return vol.id;
   }
 
 

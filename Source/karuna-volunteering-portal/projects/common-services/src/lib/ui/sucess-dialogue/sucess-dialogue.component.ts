@@ -19,12 +19,12 @@ export class SucessDialogueComponent implements OnInit {
     private dialogRef: MatDialogRef<SucessDialogueComponent>,
     private ngZone: NgZone,
     private router:Router) {
-    console.log(data);
+    //console.log(data);
 
     if (data) {
       this.message = data.message || this.message;
       this.res = data.loc;
-      console.log(this.message);
+      //console.log(this.message);
     }
 
   }
@@ -33,7 +33,7 @@ export class SucessDialogueComponent implements OnInit {
   }
 
   onConfirmClick(): void {
-    console.log("closing..." + this.res);
+    //console.log("closing..." + this.res);
     this.ngZone.run(() => {
       this.dialogRef.close(true);
       this.router.navigate([this.res]);

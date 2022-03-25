@@ -19,11 +19,11 @@ export class SidebarComponent implements OnInit {
     this.evntService.readEvent().subscribe((x:any)=>{
       if (x){
         if (x.event==EVENTTYPE.MAIN_MENU_CLICK){
-          console.log(x.data);
+          //console.log(x.data);
           if (x.data){
             this.mMenu = x.data;
             this.sMenus = this.mMenu.sMenu;
-            console.log(this.mMenu.sMenu);
+            //console.log(this.mMenu.sMenu);
           } else {
             this.sMenus = menus[0].sMenu;
           }
@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
   }
 
   doNavigate(url:string) {
-    console.log("url..." + url);
+    //console.log("url..." + url);
     this.evntService.raiseEvent(EVENTTYPE.SUB_MENU_CLICK,{loc:url});
   }
 

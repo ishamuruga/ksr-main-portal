@@ -33,36 +33,30 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(form: any): void {
-    console.log(form);
+    //console.log(form);
     let userid = form["userid"];
     let password = form["password"]
 
-    console.log(userid + "," + password);
+    //console.log(userid + "," + password);
     let user:VUser = new VUser();
     user.id = userid;
     user.password = password;
     this.fbLoginService.signIn(user).then((vuser:VUser)=>{
-      console.log("==========================FB Regusr")
-      console.log(vuser);
-      console.log(JSON.stringify(vuser));
-      console.log(vuser.id);
-      console.log(vuser.displayName);
       sessionStorage.setItem("auth",JSON.stringify(vuser));
       this.layoutService.isAuthenticated = true;
-      console.log("EMPTY SUB MENU RAISER");
       this.router.navigate(['dashboard']);
     }).catch(err=>{
       this.router.navigate(['/']);
       this.showErrorMessage = true
     }).finally(()=>{
-      console.log("Component Completed")
+      //console.log("Component Completed")
     })
   }
 
   ngOnInit(): void {
     this.layoutService.isAuthenticated = false;
     sessionStorage.clear();
-    console.log("^^^^^^^^^^^^^^^^^^^^");
+    //console.log("^^^^^^^^^^^^^^^^^^^^");
     // this.fbUserService.fetchUserById("abi@abi.com").subscribe((x:any)=>{
     //   console.log(x)
     // })
@@ -77,7 +71,7 @@ export class LoginComponent implements OnInit {
       this.layoutService.isAuthenticated = true;
       this.router.navigate(['dashboard']);
     }
-    console.log(data);
+    //console.log(data);
   }
 }
 

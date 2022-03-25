@@ -8,6 +8,7 @@ import { NewCottonBallRequestComponent } from './components/secured/new-cotton-b
 import { PendingCottonBallComponent } from './components/secured/pending-cotton-ball/pending-cotton-ball.component';
 import { CompletedCottonBallComponent } from './components/secured/completed-cotton-ball/completed-cotton-ball.component';
 import { PageInConstructionComponent } from './components/secured/page-in-construction/page-in-construction.component';
+import { FundsRaisingComponent } from './components/secured/funds/funds-raising/funds-raising.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:'pending-cotton-ball',component:PendingCottonBallComponent},
   {path:'completed-cotton-ball',component:CompletedCottonBallComponent},
   {path:'page-in-progress',component:PageInConstructionComponent},
+  {path:'fund-raising',component:FundsRaisingComponent},
   {path:'',redirectTo:'/login',pathMatch:'full'}
 ];
 
