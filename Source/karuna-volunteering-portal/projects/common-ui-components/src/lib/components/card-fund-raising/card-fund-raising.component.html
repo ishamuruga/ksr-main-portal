@@ -1,0 +1,18 @@
+<div class="container">
+    <!-- <div class="row"> -->
+    <div class="cflex">
+        <div class="col-md-3 mb-4" *ngFor="let d of datas">
+            <div class="shadow mb-4 bg-white rounded card h-60">
+                <img class="card-img-top img-fluid" [src]="d.imageUrl" alt="Card image cap">
+                <div class="card-body">
+                    <h2 class="card-title">{{d.title}}</h2>
+                    <p class="card-text">{{d.description}}</p>
+                    <a [href]="d.link" target="_blank" class="btn btn-outline-primary btn-sm">
+                        Donate<i class="far fa-heart"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
