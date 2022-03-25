@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FbCommonUtilService } from 'projects/common-api/src/public-api';
+import FundRaising from 'projects/common-ui-components/src/lib/model/FundRaising';
 
 @Component({
   selector: 'app-funds-raising',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FundsRaisingComponent implements OnInit {
 
-  constructor() { }
+  datas: FundRaising[] = [];
+
+  constructor(private fbCommonService: FbCommonUtilService) { }
 
   ngOnInit(): void {
+    this.fbCommonService.getReferenceData("funds-manager").subscribe(res => {
+
+      for (let item of res) {
+        this.datas.push(item.payload.doc.data() as FundRaising);
+      }
+
+    })
   }
 
-}
+};
+
+
+

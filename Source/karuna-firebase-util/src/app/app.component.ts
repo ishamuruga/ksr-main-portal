@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { countries,cottonBall } from './data';
+import { countries,cottonBall,funds } from './data';
 
 
 
@@ -42,6 +42,15 @@ export class AppComponent implements OnInit {
 
       console.log(x);
       this.db.collection("country").add(x);
+    })
+    console.log("Completed........")
+  }
+
+  createFunds(){
+    funds.map(x=>{
+
+      console.log(x);
+      this.db.collection("funds-manager").add(x);
     })
     console.log("Completed........")
   }
