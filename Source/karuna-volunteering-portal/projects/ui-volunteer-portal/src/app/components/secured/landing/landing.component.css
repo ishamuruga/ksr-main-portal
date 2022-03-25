@@ -1,4 +1,17 @@
-    /* Card    
+.header {
+  margin: .67em 0;
+  font-size: 2em;
+  align-items: center;
+} 
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+  /* Card    
 .card {
     border-radius: 0px;
     background-color: #ffffff;
